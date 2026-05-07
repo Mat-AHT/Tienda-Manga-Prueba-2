@@ -25,7 +25,7 @@ public class MangaService {
     }
 
     public Manga buscarManga(Integer id){
-        return mangaRepository.findById(id).stream().map(this::convertirADTO).toList();
+        return mangaRepository.findById(id);
     }
 
     public Manga editarManga(Integer id, Manga manga){
