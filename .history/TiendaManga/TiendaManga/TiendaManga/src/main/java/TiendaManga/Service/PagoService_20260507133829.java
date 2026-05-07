@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import TiendaManga.Model.Pago;
 import TiendaManga.Repository.PagoRepository;
+import TiendaManga.Repository.MangaRepository;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -29,7 +30,7 @@ public class PagoService {
 
 
     public Pago registrarPago(Pago pago){
-        pago.setFechaTransaccion(LocalDateTime.now());
+        pago.setfechaTransaccion(LocalDateTime.now());
         return pagoRepository.save(pago);
     }
     public String eliminar(Integer id){
