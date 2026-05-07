@@ -1,7 +1,6 @@
 package TiendaManga.Model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,10 +34,11 @@ public class Pago {
     private String metodoPago;
 
     @NotNull(message = "La fecha es obligatoria")
-    private LocalDateTime fechaTransaccion;
+    private LocalDate fechaTransaccion;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario") 
     private Usuario usuario;
 
+    
 }
