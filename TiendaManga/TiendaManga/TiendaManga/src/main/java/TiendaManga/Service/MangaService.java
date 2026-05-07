@@ -25,7 +25,7 @@ public class MangaService {
     }
 
     public Manga buscarManga(Integer id){
-        return mangaRepository.findById(id).stream().map(this::convertirADTO).toList();
+        return mangaRepository.findById(id).orElseThrow(() -> new RuntimeException("No se ha encontrado el manga con la id" + id));
     }
 
     public Manga editarManga(Integer id, Manga manga){
