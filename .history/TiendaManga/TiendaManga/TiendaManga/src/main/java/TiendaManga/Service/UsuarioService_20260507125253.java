@@ -23,7 +23,7 @@ public class UsuarioService {
     }
     public Usuario actualizar(Integer id, Usuario usuarioActualizado){
         Usuario usuarioExistente = usuarioRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("usuario no encontrado"));
+            .orElseThrow(() -> new RuntimeException("usuario no encontrado");
         if(usuarioActualizado.getNombre() != null) usuarioExistente.setNombre(usuarioActualizado.getNombre());
         if(usuarioActualizado.getCorreo() != null) usuarioExistente.setCorreo(usuarioActualizado.getCorreo());
         if(usuarioActualizado.getContraseña() != null)usuarioExistente.setContraseña(usuarioActualizado.getContraseña());
@@ -34,5 +34,7 @@ public class UsuarioService {
         Usuario usuario = buscaPorId(id);
         usuarioRepository.delete(usuario);
         return "el usuario " + usuario.getNombre() + " ha sido eliminado";
-    }  
+    }
+
+    
 }

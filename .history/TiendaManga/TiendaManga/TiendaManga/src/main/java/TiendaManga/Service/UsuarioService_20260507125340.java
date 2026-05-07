@@ -34,5 +34,7 @@ public class UsuarioService {
         Usuario usuario = buscaPorId(id);
         usuarioRepository.delete(usuario);
         return "el usuario " + usuario.getNombre() + " ha sido eliminado";
-    }  
+    }
+
+    
 }
