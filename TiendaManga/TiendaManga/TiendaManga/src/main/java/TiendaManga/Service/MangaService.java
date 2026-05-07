@@ -25,7 +25,7 @@ public class MangaService {
     }
 
     public Manga buscarManga(Integer id){
-        return mangaRepository.findById(id).orElseThrow(() -> new RuntimeException("No se ha encontrado el manga con la ID" + id));
+        return mangaRepository.findById(id).orElseThrow(() -> new RuntimeException("No se ha encontrado el manga con la ID " + id));
     }
 
     public Manga editarManga(Integer id, Manga manga){
@@ -44,7 +44,7 @@ public class MangaService {
 
     public String eliminarManga(Integer id){
         try{
-            Manga manga = mangaRepository.findById(id).orElseThrow(() -> new RuntimeException("No es posible eliminar el manga con ID " + id + "ya que no existe!."));
+            Manga manga = mangaRepository.findById(id).orElseThrow(() -> new RuntimeException("No es posible eliminar el manga con ID '" + id + "' ya que no existe!."));
             mangaRepository.delete(manga);
             return "El manga '" + manga.getNombre() + "' ha sido eliminado!.";
         }catch (RuntimeException e) {

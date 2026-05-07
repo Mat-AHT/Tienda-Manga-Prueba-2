@@ -13,36 +13,36 @@ public class AutorService {
     @Autowired
     private AutorRepository autorRepository;
 
-    public List<Autor> obtenerTodos(){
+    public List<Autor> listarAutores(){
         return autorRepository.findAll();
     }
-    public Autor buscarPorId(Integer id){
-        return autorRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("El autor no existe en los registros"));
-    }
-    public Autor guardar(Autor autor){
+
+    public Autor guardarAutor(Autor autor){
         return autorRepository.save(autor);
     }
-    public String eliminar(Integer id){
+
+    public Autor buscarAutor(Integer id_autor){
+        return autorRepository.findById(id_autor).orElseThrow(() -> new RuntimeException("No se ha encontrado el autor con la ID " + id_autor));
+    }
+    
+    public Autor editarAutor(Integer id_autor, Autor autor1){
+        Autor autor = autorRepository.findById(id_autor).orElseThrow(() -> new RuntimeException("No se ha encontrado el autor con la ID " + id_autor));
+        if(autor1.getNombreAutor() != null){
+            autor.setNombreAutor(autor1.getNombreAutor());
+        }
+        if(autor1.getNacionalidad() != null){
+            autor.setNacionalidad(autor1.getNacionalidad());
+        }
+        return autorRepository.save(autor);
+    }
+
+    public String eliminarAutor(Integer id_autor){
         try{
-            Autor autor = autorRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("el autor con el id '" + id +"' no existe"));
+            Autor autor = autorRepository.findById(id_autor).orElseThrow(() -> new RuntimeException("el autor con el id '" + id_autor +"' no existe"));
             autorRepository.delete(autor);
             return "el autor ha sido retirado";
         }catch (RuntimeException e){
             return e.getMessage();
         }
-    }
-    public Autor actualizar(Integer id_autor, Autor autorActualizado){
-        Autor autorExistente = autorRepository.findById(id_autor)
-        .orElseThrow(() -> new RuntimeException("el autor no existe en los registros"));
-        if(autorActualizado.getNombreAutor() != null){
-            autorExistente.setNombreAutor(autorActualizado.getNombreAutor());
-        }
-        if(autorActualizado.getNacionalidad() != null){
-            autorExistente.setNacionalidad(autorActualizado.getNacionalidad());
-        }
-        return autorRepository.save(autorExistente);
-
     }
 }

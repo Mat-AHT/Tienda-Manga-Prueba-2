@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Carritos")
 public class Carrito {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id_carrito;
 
     @Min(1)
     private Integer cantidad;

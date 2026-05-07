@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import TiendaManga.Model.Manga;
 import TiendaManga.Model.Demografia;
-import TiendaManga.Repository.MangaRepository;
 import jakarta.transaction.Transactional;
 import TiendaManga.Repository.DemografiaRepository;
 
@@ -18,34 +16,33 @@ public class DemografiaService {
     @Autowired
     private DemografiaRepository demografiaRepository;
 
-    @Autowired
-    private MangaRepository mangaRepository;
-
-    public List<Demografia> obtenerTodas(){
+    public List<Demografia> listarDemografias(){
         return demografiaRepository.findAll();
     }
 
-    public Demografia buscarPorId(Integer id){
-        return demografiaRepository.findById(id).orElseThrow(() -> new RuntimeException("La demografia no existe en los registros"));
+    public Demografia guardarDemografia(Demografia demografia){
+        return demografiaRepository.save(demografia);
     }
 
-    public Demografia guardar(Demografia demo){
-        return demografiaRepository.save(demo);
+    public Demografia buscarDemografia(Integer id_demografia){
+        return demografiaRepository.findById(id_demografia).orElseThrow(() -> new RuntimeException("No se ha encontrado la demografia con la ID " + id_demografia));
     }
 
-    public String añadirDemografia(Integer demografiaId, Integer mangaId){
-        Manga manga = mangaRepository.findById(mangaId)
-            .orElseThrow(() -> new RuntimeException("Imposible añadir El manga con ID" + mangaId + "no existe"));
-        Demografia demografia = demografiaRepository.findById(demografiaId)
-            .orElseThrow(() -> new RuntimeException("Demografia no existe"));
-        
-        manga.setDemografia(demografia);
-        mangaRepository.save(manga);
-        return "Manga ID: " + mangaId + "Agregado al manga ID: " + demografiaId;
-
+    public Demografia editarDemografia(Integer id_demografia, Demografia demografia1){
+        Demografia demografia = demografiaRepository.findById(id_demografia).orElseThrow(() -> new RuntimeException("No se ha encontrado la demografia con la ID " + id_demografia));
+        if(demografia.getNombreDemografia() != null){
+            demografia.setNombreDemografia(demografia1.getNombreDemografia());
+        }
+        return demografiaRepository.save(demografia);
     }
-    // actualizar 
 
-
-
+    public String eliminarDemografia(Integer id_demografia){
+        try{
+            Demografia demografia = demografiaRepository.findById(id_demografia).orElseThrow(() -> new RuntimeException("No se ha encontrado la demografia con la ID" + id_demografia));
+            demografiaRepository.delete(demografia);
+            return "La demografia ha sido eliminada";
+        }catch(RuntimeException e){
+            return e.getMessage();
+        }
+    }
 }
