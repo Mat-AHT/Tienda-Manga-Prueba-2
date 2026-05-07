@@ -15,9 +15,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-//0000000
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
