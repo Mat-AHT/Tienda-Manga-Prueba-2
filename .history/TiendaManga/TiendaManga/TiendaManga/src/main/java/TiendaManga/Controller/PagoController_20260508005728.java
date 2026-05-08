@@ -39,8 +39,8 @@ public class PagoController {
         return ResponseEntity.notFound().build();
     }
     @PostMapping
-    public ResponseEntity<Pago> procesarPago(@RequestBody Pago pagoNuevo) {
-        Pago pago = pagoService.registrarPago(pagoNuevo);
+    public ResponseEntity<Pago> procesarPago(@RequestBody Pago pago1) {
+        Pago pago = pagoService.registrarPago(pago1);
         if (pago != null) {
             return new ResponseEntity<>(pago, HttpStatus.CREATED);
         }
