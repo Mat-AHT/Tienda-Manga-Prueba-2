@@ -7,7 +7,6 @@ public class ResenaService {
     @Autowired
     private ResenaRepository resenaRepository;
 
-    @Autowired
-    private MangaRepository mangaRepository
+    
 
 }
