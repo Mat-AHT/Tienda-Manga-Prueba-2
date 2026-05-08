@@ -40,7 +40,7 @@ public class AutorService {
         try{
             Autor autor = autorRepository.findById(id_autor).orElseThrow(() -> new RuntimeException("el autor con el id '" + id_autor +"' no existe"));
             autorRepository.delete(autor);
-            return "el autor ha sido retirado";
+            return "El autor ha sido eliminado.";
         }catch (RuntimeException e){
             return e.getMessage();
         }
