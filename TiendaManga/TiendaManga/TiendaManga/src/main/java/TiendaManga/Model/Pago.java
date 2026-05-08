@@ -1,7 +1,6 @@
 package TiendaManga.Model;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +15,7 @@ import jakarta.validation.constraints.NotNull;
 public class Pago {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private Integer id;
+    private Integer id_pago;
 
     @NotNull(message = "El monto es obligatorio")
     @Min(value = 1, message = "El monto debe ser al menos 1") 
@@ -26,7 +25,7 @@ public class Pago {
     private String metodoPago;
 
     @NotNull(message = "La fecha es obligatoria")
-    private LocalDate fechaTransaccion;
+    private LocalDateTime fechaTransaccion;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario") 
