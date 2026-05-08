@@ -40,7 +40,7 @@ public class DemografiaService {
         try{
             Demografia demografia = demografiaRepository.findById(id_demografia).orElseThrow(() -> new RuntimeException("No se ha encontrado la demografia con la ID" + id_demografia));
             demografiaRepository.delete(demografia);
-            return "La demografia ha sido eliminada";
+            return "La demografia ha sido eliminada.";
         }catch(RuntimeException e){
             return e.getMessage();
         }

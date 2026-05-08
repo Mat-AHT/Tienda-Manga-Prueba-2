@@ -16,15 +16,15 @@ public class CarritoService {
     @Autowired
     private CarritoRepository carritoRepository;
 
-    public List<Carrito> listarAutores(){
+    public List<Carrito> listarCarritos(){
         return carritoRepository.findAll();
     }
 
-    public Carrito guardarAutor(Carrito carrito){
+    public Carrito guardarCarrito(Carrito carrito){
         return carritoRepository.save(carrito);
     }
 
-    public Carrito buscarAutores(Integer id_carrito){
+    public Carrito buscarCarrito(Integer id_carrito){
         return carritoRepository.findById(id_carrito).orElseThrow(() -> new RuntimeException("No se ha encontrado el carrito con la ID " + id_carrito));
     }
 
@@ -40,7 +40,7 @@ public class CarritoService {
         try{
             Carrito carrito = carritoRepository.findById(id_carrito).orElseThrow(() -> new RuntimeException("No se ha encontrado el carrito con la ID " + id_carrito));
             carritoRepository.delete(carrito);
-            return "El carrito ha sido eliminado";
+            return "El carrito ha sido eliminado.";
         }catch(RuntimeException e){
             return e.getMessage();
         }
