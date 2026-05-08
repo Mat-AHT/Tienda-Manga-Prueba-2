@@ -39,7 +39,7 @@ public class MangaService {
         if(manga.getSinopsis() != null){
             manga1.setSinopsis(manga.getSinopsis());
         }
-        return mangaRepository.save(manga);
+        return mangaRepository.save(manga1);
     }
 
     public String eliminarManga(Integer id){
@@ -51,6 +51,10 @@ public class MangaService {
             return e.getMessage();
         }
     }
+
+    public List<Manga> buscarPorGenero(Integer id_genero){
+            return mangaRepository.buscarPorGenero(id_genero);
+        }
 
 
 
