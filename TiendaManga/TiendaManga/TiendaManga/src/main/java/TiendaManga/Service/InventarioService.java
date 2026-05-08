@@ -21,6 +21,7 @@ public class InventarioService {
 >>>>>>> f9108e579cbd8fc4fd85dd45250c74883cf32fd7
 
     public List<Inventario> obtenerTodos(){
+        return invRepository.findAll();
     }
 
     public Inventario buscarInventario(Integer id){
