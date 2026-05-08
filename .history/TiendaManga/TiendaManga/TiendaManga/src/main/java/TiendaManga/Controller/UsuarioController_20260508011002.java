@@ -50,8 +50,8 @@ public class UsuarioController {
     @DeleteMapping("/{id_usuario}")
     public ResponseEntity<String> eliminarUsuario(@PathVariable Integer id_usuario) {
         String resultado = usuarioServices.eliminar(id_usuario);
-        if (resultado.equals("El usuario ha sido eliminado.")) {
-            return new ResponseEntity<>(resultado, HttpStatus.OK);
+        if(resultado != null && !resultado.contains("no existe")){
+            return new ResponseEntity<>(resultado,HttpStatus.OK);
         }
         return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
     }
