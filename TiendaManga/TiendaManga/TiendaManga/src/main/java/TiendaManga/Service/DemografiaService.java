@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import TiendaManga.DTO.DemografiaDTO;
 import TiendaManga.Model.Demografia;
 import jakarta.transaction.Transactional;
 import TiendaManga.Repository.DemografiaRepository;
@@ -16,16 +17,17 @@ public class DemografiaService {
     @Autowired
     private DemografiaRepository demografiaRepository;
 
-    public List<Demografia> listarDemografias(){
-        return demografiaRepository.findAll();
+    public List<DemografiaDTO> listarDemografias(){
+        return demografiaRepository.findAll().stream().map(this::convertirDemografiaDTO).toList();
     }
 
     public Demografia guardarDemografia(Demografia demografia){
         return demografiaRepository.save(demografia);
     }
 
-    public Demografia buscarDemografia(Integer id_demografia){
-        return demografiaRepository.findById(id_demografia).orElseThrow(() -> new RuntimeException("No se ha encontrado la demografia con la ID " + id_demografia));
+    public DemografiaDTO buscarDemografia(Integer id_demografia){
+        Demografia demografia = demografiaRepository.findById(id_demografia).orElseThrow(() -> new RuntimeException("No se ha encontrado la demografia con la ID " + id_demografia));
+        return convertirDemografiaDTO(demografia);
     }
 
     public Demografia editarDemografia(Integer id_demografia, Demografia demografia1){
@@ -44,5 +46,11 @@ public class DemografiaService {
         }catch(RuntimeException e){
             return e.getMessage();
         }
+    }
+
+    public DemografiaDTO convertirDemografiaDTO(Demografia demografia){
+        DemografiaDTO dto = new DemografiaDTO();
+        dto.setNombreDemografia(demografia.getNombreDemografia());
+        return dto;
     }
 }

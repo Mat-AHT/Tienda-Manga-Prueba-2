@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+import TiendaManga.DTO.AutorDTO;
 import TiendaManga.Model.Autor;
 import TiendaManga.Repository.AutorRepository;
 import java.util.List;
@@ -13,16 +14,17 @@ public class AutorService {
     @Autowired
     private AutorRepository autorRepository;
 
-    public List<Autor> listarAutores(){
-        return autorRepository.findAll();
+    public List<AutorDTO> listarAutores(){
+        return autorRepository.findAll().stream().map(this::convertirAutorDTO).toList();
     }
 
     public Autor guardarAutor(Autor autor){
         return autorRepository.save(autor);
     }
 
-    public Autor buscarAutor(Integer id_autor){
-        return autorRepository.findById(id_autor).orElseThrow(() -> new RuntimeException("No se ha encontrado el autor con la ID " + id_autor));
+    public AutorDTO buscarAutor(Integer id_autor){
+        Autor autor = autorRepository.findById(id_autor).orElseThrow(() -> new RuntimeException("No se ha encontrado el autor con la ID " + id_autor));
+        return convertirAutorDTO(autor);
     }
     
     public Autor editarAutor(Integer id_autor, Autor autor1){
@@ -44,5 +46,14 @@ public class AutorService {
         }catch (RuntimeException e){
             return e.getMessage();
         }
+    }
+
+    private AutorDTO convertirAutorDTO(Autor autor){
+        AutorDTO dto = new AutorDTO();
+        dto.setId_autor(autor.getId_autor());
+        dto.setNombreAutor(autor.getNombreAutor());
+        dto.setNacionalidad(autor.getNacionalidad());
+        return dto;
+
     }
 }

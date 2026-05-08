@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import TiendaManga.DTO.CarritoDTO;
 import TiendaManga.Model.Carrito;
 import TiendaManga.Repository.CarritoRepository;
 import jakarta.transaction.Transactional;
@@ -16,16 +17,17 @@ public class CarritoService {
     @Autowired
     private CarritoRepository carritoRepository;
 
-    public List<Carrito> listarCarritos(){
-        return carritoRepository.findAll();
+    public List<CarritoDTO> listarCarritos(){
+        return carritoRepository.findAll().stream().map(this::convertirCarritoDTO).toList();
     }
 
     public Carrito guardarCarrito(Carrito carrito){
         return carritoRepository.save(carrito);
     }
 
-    public Carrito buscarCarrito(Integer id_carrito){
-        return carritoRepository.findById(id_carrito).orElseThrow(() -> new RuntimeException("No se ha encontrado el carrito con la ID " + id_carrito));
+    public CarritoDTO buscarCarrito(Integer id_carrito){
+        Carrito carrito = carritoRepository.findById(id_carrito).orElseThrow(() -> new RuntimeException("No se ha encontrado el carrito con la ID " + id_carrito));
+        return convertirCarritoDTO(carrito);
     }
 
     public Carrito editarCarrito(Integer id_carrito, Carrito carrito1){
@@ -44,5 +46,11 @@ public class CarritoService {
         }catch(RuntimeException e){
             return e.getMessage();
         }
+    }
+
+    public CarritoDTO convertirCarritoDTO(Carrito carrito){
+        CarritoDTO dto = new CarritoDTO();
+        dto.setCantidad(carrito.getCantidad());
+        return dto;
     }
 }
