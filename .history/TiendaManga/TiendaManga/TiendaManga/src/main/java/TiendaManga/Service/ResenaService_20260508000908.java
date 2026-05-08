@@ -26,18 +26,15 @@ public class ResenaService {
     public Resena agregar(Resena resena){
         return resenaRepository.save(resena);
     }
-    public Resena actualizar(Integer id_resena, Resena reseñaActualizada){
-        Resena reseñaExistente = resenaRepository.findById(id_resena)
-        .orElseThrow(() -> new RuntimeException("la reseña no existe en los registros"));
-        
-        if(reseñaActualizada.getComentario() != null){
-            reseñaExistente.setComentario(reseñaActualizada.getComentario());
+    public Resena actualizar(Integer id, Resena resenaActualizada){
+        Resena resenaExistente = buscarPorId(id);
+        if(resenaActualizada.getComentario() != null){
+            resenaExistente.setComentario(resenaActualizada.getComentario());
         }
-        if(reseñaActualizada.getCalificacion() != null){
-            reseñaExistente.setCalificacion(reseñaActualizada.getCalificacion());
+        if(resenaActualizada.getCalificacion() != null){
+            resenaExistente.setCalificacion(resenaActualizada.getCalificacion());
         }
-        
-        return resenaRepository.save(reseñaExistente);
+        return resenaRepository.save(resenaExistente);
     }
     public String eliminar(Integer id){
         try{
