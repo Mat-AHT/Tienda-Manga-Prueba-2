@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import TiendaManga.DTO.CarritoDTO;
 import TiendaManga.Model.Carrito;
 import TiendaManga.Service.CarritoService;
 
@@ -25,22 +26,24 @@ public class CarritoController {
     private CarritoService carritoService;
 
     @GetMapping
-    public ResponseEntity<List<Carrito>> listarCarritos(){
-        List<Carrito> carritos = carritoService.listarCarritos();
+    public ResponseEntity<List<CarritoDTO>> listarCarritos(){
+        List<CarritoDTO> carritos = carritoService.listarCarritos();
         if(carritos.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(carritos, HttpStatus.OK);
     }
 
     @GetMapping("{id_carrito}")
-    public ResponseEntity<Carrito> buscarCarrito(@PathVariable Integer id_carrito){
-        Carrito carrito1 = carritoService.buscarCarrito(id_carrito);
-        if(carrito1 != null){
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<CarritoDTO> buscarCarrito(@PathVariable Integer id_carrito){
+        try{
+            CarritoDTO carrito = carritoService.buscarCarrito(id_carrito);
+            return new ResponseEntity<>(carrito, HttpStatus.OK);
+        } catch(RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }     
     }
+        
 
     @PostMapping
     public ResponseEntity<Carrito> guardarCarrito(@RequestBody Carrito carrito1){

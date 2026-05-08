@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import TiendaManga.DTO.MangaDTO;
 import TiendaManga.Model.Manga;
 import TiendaManga.Service.MangaService;
 
@@ -25,8 +26,8 @@ public class MangaController {
     private MangaService mangaService;
 
     @GetMapping
-    public ResponseEntity<List<Manga>> obtenerManga(){
-        List<Manga> mangas = mangaService.listarMangas();
+    public ResponseEntity<List<MangaDTO>> obtenerManga(){
+        List<MangaDTO> mangas = mangaService.listarMangas();
         if(mangas.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -34,17 +35,18 @@ public class MangaController {
     }
 
     @GetMapping("/{id_manga}")
-    public ResponseEntity<Manga> buscarMangaId(@PathVariable Integer id_manga){
-        Manga manga = mangaService.buscarManga(id_manga);
-        if(manga != null){
+    public ResponseEntity<MangaDTO> buscarMangaId(@PathVariable Integer id_manga){
+        try{
+            MangaDTO manga = mangaService.buscarManga(id_manga);
             return new ResponseEntity<>(manga, HttpStatus.OK);
+        } catch(RuntimeException e){
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/genero/{id_genero}")
-    public ResponseEntity<List<Manga>> filtrarPorgenero(@PathVariable Integer id_genero){
-        List<Manga> mangas = mangaService.buscarPorGenero(id_genero);
+    public ResponseEntity<List<MangaDTO>> filtrarPorgenero(@PathVariable Integer id_genero){
+        List<MangaDTO> mangas = mangaService.buscarPorGenero(id_genero);
         if(mangas.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

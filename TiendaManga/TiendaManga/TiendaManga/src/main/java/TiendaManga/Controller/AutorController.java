@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import TiendaManga.DTO.AutorDTO;
 import TiendaManga.Model.Autor;
 import TiendaManga.Service.AutorService;
 
@@ -25,21 +26,23 @@ public class AutorController {
     private AutorService autorService;
 
     @GetMapping
-    public ResponseEntity<List<Autor>> listarAutores(){
-        List<Autor> autores = autorService.listarAutores();
+    public ResponseEntity<List<AutorDTO>> listarAutores(){
+        List<AutorDTO> autores = autorService.listarAutores();
         if(autores.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(autores, HttpStatus.OK);
     }
 
     @GetMapping("{id_autor}")
-    public ResponseEntity<Autor> buscarAutor(@PathVariable Integer id_autor){
-        Autor autor1 = autorService.buscarAutor(id_autor);
-        if(autor1 != null){
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<AutorDTO> buscarAutor(@PathVariable Integer id_autor){
+        try{
+            AutorDTO autor = autorService.buscarAutor(id_autor);
+            return new ResponseEntity<>(autor, HttpStatus.OK);
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+        
     }
 
     @PostMapping

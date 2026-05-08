@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import TiendaManga.DTO.DemografiaDTO;
 import TiendaManga.Model.Demografia;
 import TiendaManga.Service.DemografiaService;
 
@@ -25,21 +26,23 @@ public class DemografiaController {
     private DemografiaService demografiaService;
 
     @GetMapping
-    public ResponseEntity<List<Demografia>> listarDemografias(){
-        List<Demografia> demografias = demografiaService.listarDemografias();
+    public ResponseEntity<List<DemografiaDTO>> listarDemografias(){
+        List<DemografiaDTO> demografias = demografiaService.listarDemografias();
         if(demografias.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(demografias, HttpStatus.OK);
     }
 
     @GetMapping("{id_demografia}")
-    public ResponseEntity<Demografia> buscarDemografia(@PathVariable Integer id_demografia){
-        Demografia demografia1 = demografiaService.buscarDemografia(id_demografia);
-        if(demografia1 != null){
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<DemografiaDTO> buscarDemografia(@PathVariable Integer id_demografia){
+        try{
+            DemografiaDTO demografia = demografiaService.buscarDemografia(id_demografia);
+            return new ResponseEntity<>(demografia, HttpStatus.OK);
+        }catch(RuntimeException e){
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+            
     }
 
     @PostMapping
