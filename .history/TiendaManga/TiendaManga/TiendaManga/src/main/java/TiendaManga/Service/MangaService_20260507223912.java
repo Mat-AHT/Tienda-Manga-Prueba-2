@@ -50,10 +50,10 @@ public class MangaService {
         }catch (RuntimeException e) {
             return e.getMessage();
         }
-    }
-    public List<Manga> buscarPorGenero(Integer id_genero){
+        public List<Manga> buscarPorGenero(Integer id_genero){
             return mangaRepository.buscarPorGenero(id_genero);
         }
+    }
 
 
 

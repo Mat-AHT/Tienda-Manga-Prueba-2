@@ -38,11 +38,7 @@ public class MangaController {
     }
     @GetMapping("/genero/{id_genero}")
     public ResponseEntity<List<Manga>> filtrarPorgenero(@PathVariable Integer id_genero){
-        List<Manga> mangas = mangaService.buscarPorGenero(id_genero);
-        if(mangas.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(mangas, HttpStatus.OK);
+        List<Manga> mangas = mangaService.buscarGenero(id_genero);
     }
     
 }
