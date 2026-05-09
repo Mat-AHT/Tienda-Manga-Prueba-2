@@ -22,16 +22,18 @@ import lombok.NoArgsConstructor;
 @Table(name = "Carritos")
 public class Carrito {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id_carrito;
 
     @Min(1)
     private Integer cantidad;
 
+    //Relaciones
     @ManyToOne @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @ManyToOne @JoinColumn(name = "manga_id")
     private Manga manga;
+    
     @OneToMany(mappedBy = "genero")
     private List<Manga> mangas;
 

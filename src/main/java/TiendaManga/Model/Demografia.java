@@ -30,6 +30,7 @@ public class Demografia {
     @Size(min = 4, max = 60)
     private String nombreDemografia;
 
+    //Relaciones
     @OneToMany(mappedBy = "demografia")
     @ToString.Exclude
     private List<Manga> mangas;
