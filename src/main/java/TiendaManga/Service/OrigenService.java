@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import TiendaManga.DTO.OrigenDTO;
 import TiendaManga.Model.Origen;
 import TiendaManga.Repository.OrigenRepository;
 import jakarta.transaction.Transactional;
@@ -17,12 +18,13 @@ public class OrigenService {
     @Autowired
     private OrigenRepository origenRepository;
 
-    public List<Origen> listarOrigen(){
-        return origenRepository.findAll();
+    public List<OrigenDTO> listarOrigen(){
+        return origenRepository.findAll().stream().map(this::convertirOrigenDTO).toList();
     }
 
-    public Origen buscarOrigen(Integer id_origen){
-        return origenRepository.findById(id_origen).orElseThrow(() -> new RuntimeException("El origen no existe en los registros"));
+    public OrigenDTO buscarOrigen(Integer id_origen){
+        Origen origen = origenRepository.findById(id_origen).orElseThrow(() -> new RuntimeException("El origen no existe en los registros"));
+        return convertirOrigenDTO(origen);
     }
 
     public Origen guardarOrigen(Origen origen){
@@ -46,6 +48,13 @@ public class OrigenService {
             return e.getMessage();
         }
     }
+
+    private OrigenDTO convertirOrigenDTO(Origen origen) {
+        OrigenDTO orgn = new OrigenDTO();;
+        orgn.setId_origen(origen.getId_origen());
+        orgn.setPais(origen.getPais());
+        return orgn;
+        }
 
 
 
