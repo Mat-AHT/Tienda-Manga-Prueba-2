@@ -33,6 +33,7 @@ import lombok.NoArgsConstructor;
     @Size(min = 4, max = 60)
     private String nacionalidad;
 
+    //Relaciones
     @OneToMany(mappedBy = "autor")
     private List<Manga> mangas;
 }

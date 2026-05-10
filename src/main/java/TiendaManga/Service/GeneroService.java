@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import TiendaManga.Model.Genero;
-import TiendaManga.Repository.MangaRepository;
 import jakarta.transaction.Transactional;
 import TiendaManga.Repository.GeneroRepository;
 
@@ -16,9 +15,6 @@ public class GeneroService {
 
     @Autowired
     private GeneroRepository generoRepository;
-
-    @Autowired
-    private MangaRepository mangaRepository;
 
     public List<Genero> obtenerTodos(){
         return generoRepository.findAll();

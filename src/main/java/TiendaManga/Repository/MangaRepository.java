@@ -13,7 +13,6 @@ import TiendaManga.Model.Manga;
 public interface MangaRepository extends JpaRepository<Manga, Integer>{
     // lo dejaremos vacio porque el jpa hace todo 
     //hacer query personalizada necesario 3 
-    // Busca todos los mangas que pertenecen a un género específico
     @Query("SELECT m FROM Manga m WHERE m.genero.id = :generoId")
     List<Manga> buscarPorGenero(@Param("generoId") Integer generoId);
 }

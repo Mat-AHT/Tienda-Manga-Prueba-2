@@ -1,0 +1,13 @@
+package TiendaManga.DTO;
+
+import lombok.Data;
+
+@Data
+public class MangaDTO {
+
+    private Integer id_manga;
+    private String nombre;
+    private Integer precio;
+    private String sinopsis;
+
+}
