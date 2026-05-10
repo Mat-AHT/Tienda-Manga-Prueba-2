@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Carritos")
+@Table(name = "CARRITO")
 public class Carrito {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_carrito;
