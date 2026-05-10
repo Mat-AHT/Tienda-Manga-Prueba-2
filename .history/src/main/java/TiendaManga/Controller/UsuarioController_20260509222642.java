@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import TiendaManga.DTO.UsuarioDTO;
 import TiendaManga.Model.Usuario;
 import TiendaManga.Service.UsuarioService;
 
@@ -22,11 +21,10 @@ import TiendaManga.Service.UsuarioService;
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioServices;
-    
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDTO>> listarUsuario(){
-        List<UsuarioDTO> usuarios = usuarioServices.obtenerTodos();
+    public ResponseEntity<List<Usuario>> listarUsuario(){
+        List<Usuario> usuarios = usuarioServices.obtenerTodos();
         if(usuarios.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -34,13 +32,12 @@ public class UsuarioController {
     }
     
     @GetMapping("/{id_usuario}")
-    public ResponseEntity<UsuarioDTO> buscarUsuario(@PathVariable Integer id_usuario){
-        try{
-            UsuarioDTO usuario = usuarioServices.buscaPorId(id_usuario);
-            return new ResponseEntity<>(usuario,HttpStatus.OK);
-        }catch(RuntimeException e){
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Usuario> buscarUsuario(@PathVariable Integer id_usuario){
+        Usuario usuario = usuarioServices.buscaPorId(id_usuario);
+        if(usuario != null){
+            return new ResponseEntity<>(usuario, HttpStatus.OK);
         }
+        return ResponseEntity.notFound().build();
     }
     @PostMapping
     public ResponseEntity<Usuario> guardarUsuario(@RequestBody Usuario usuarioNuevo){
