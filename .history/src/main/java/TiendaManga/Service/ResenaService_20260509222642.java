@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import TiendaManga.DTO.ResenaDTO;
 import TiendaManga.Model.Resena;
 import TiendaManga.Repository.ResenaRepository;
 import jakarta.transaction.Transactional;
@@ -17,13 +16,12 @@ public class ResenaService {
     @Autowired
     private ResenaRepository resenaRepository;
 
-    public List<ResenaDTO> obtenerTodo(){
-        return resenaRepository.findAll().stream().map(this::convertirResenaDTO).toList();
+    public List<Resena> obtenerTodo(){
+        return resenaRepository.findAll();
     }
-    public ResenaDTO buscarPorId(Integer id){
-        Resena resena = resenaRepository.findById(id)
+    public Resena buscarPorId(Integer id){
+        return resenaRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("la reseña no existe"));
-            return convertirResenaDTO(resena);
     }
     public Resena agregar(Resena resena){
         return resenaRepository.save(resena);
@@ -51,13 +49,6 @@ public class ResenaService {
             return e.getMessage();
         }
     }
-    private ResenaDTO convertirResenaDTO(Resena resena){
-        ResenaDTO dto = new ResenaDTO();
-        dto.setId_resena(resena.getId_resena());
-        dto.setCalificacion(resena.getCalificacion());
-        dto.setComentario(resena.getComentario());
-        return dto;
-    }
-    
+
 
 }
