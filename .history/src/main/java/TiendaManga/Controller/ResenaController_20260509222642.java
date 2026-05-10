@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import TiendaManga.DTO.ResenaDTO;
 import TiendaManga.Model.Resena;
 import TiendaManga.Service.ResenaService;
 
@@ -23,23 +22,22 @@ import TiendaManga.Service.ResenaService;
 public class ResenaController {
     @Autowired
     private ResenaService resenaServices;
-    
+
     @GetMapping
-    public ResponseEntity<List<ResenaDTO>> listarResenas() {
-        List<ResenaDTO> resenas = resenaServices.obtenerTodo();
+    public ResponseEntity<List<Resena>> listarResenas() {
+        List<Resena> resenas = resenaServices.obtenerTodo();
         if (resenas.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(resenas, HttpStatus.OK);
     }
     @GetMapping("/{id_resena}")
-    public ResponseEntity<ResenaDTO> buscarResena(@PathVariable Integer id_resena) {
-        try{
-            ResenaDTO resena= resenaServices.buscarPorId(id_resena);
+    public ResponseEntity<Resena> buscarResena(@PathVariable Integer id_resena) {
+        Resena resena = resenaServices.buscarPorId(id_resena);
+        if (resena != null) {
             return new ResponseEntity<>(resena, HttpStatus.OK);
-        }catch(RuntimeException e){
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.notFound().build();
     }
     @PostMapping
     public ResponseEntity<Resena> guardarResena(@RequestBody Resena resenaNueva) {
@@ -65,5 +63,4 @@ public class ResenaController {
         }
         return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
     }
-    
 }

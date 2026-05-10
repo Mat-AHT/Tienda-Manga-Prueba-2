@@ -66,5 +66,25 @@ public class PagoController {
         }
         return new ResponseEntity<>(pagos, HttpStatus.OK);
     }
-    
+    /*
+     @GetMapping
+    public ResponseEntity<List<AutorDTO>> listarAutores(){
+        List<AutorDTO> autores = autorService.listarAutores();
+        if(autores.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(autores, HttpStatus.OK);
+    }
+
+    @GetMapping("{id_autor}")
+    public ResponseEntity<AutorDTO> buscarAutor(@PathVariable Integer id_autor){
+        try{
+            AutorDTO autor = autorService.buscarAutor(id_autor);
+            return new ResponseEntity<>(autor, HttpStatus.OK);
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
+        
+    }
+    */
 }
