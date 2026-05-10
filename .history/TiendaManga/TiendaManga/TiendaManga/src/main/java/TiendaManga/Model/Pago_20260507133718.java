@@ -1,6 +1,10 @@
 package TiendaManga.Model;
 
+<<<<<<<< HEAD:src/main/java/TiendaManga/Model/Pago.java
+import java.time.LocalDate;
+========
 import java.time.LocalDateTime;
+>>>>>>>> main:.history/TiendaManga/TiendaManga/TiendaManga/src/main/java/TiendaManga/Model/Pago_20260507133718.java
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

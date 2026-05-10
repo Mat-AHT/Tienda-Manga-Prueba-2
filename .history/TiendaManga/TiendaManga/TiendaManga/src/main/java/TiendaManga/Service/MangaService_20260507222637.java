@@ -25,7 +25,11 @@ public class MangaService {
     }
 
     public Manga buscarManga(Integer id){
+<<<<<<<< HEAD:src/main/java/TiendaManga/Service/MangaService.java
+        return mangaRepository.findById(id).orElseThrow(() -> new RuntimeException("No se ha encontrado el manga con la ID" + id));
+========
         return mangaRepository.findById(id);
+>>>>>>>> main:.history/TiendaManga/TiendaManga/TiendaManga/src/main/java/TiendaManga/Service/MangaService_20260507222637.java
     }
 
     public Manga editarManga(Integer id, Manga manga){
