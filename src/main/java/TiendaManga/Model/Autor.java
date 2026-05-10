@@ -18,8 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Autores")
-
+@Table(name = "AUTOR")
     public class Autor {
 
     @Id
@@ -34,6 +33,7 @@ import lombok.NoArgsConstructor;
     @Size(min = 4, max = 60)
     private String nacionalidad;
 
+    //Relaciones
     @OneToMany(mappedBy = "autor")
     private List<Manga> mangas;
 }

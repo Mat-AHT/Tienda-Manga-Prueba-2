@@ -19,7 +19,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Demografias")
+@Table(name = "DEMOGRAFIA")
 public class Demografia {
     
     @Id
@@ -30,6 +30,7 @@ public class Demografia {
     @Size(min = 4, max = 60)
     private String nombreDemografia;
 
+    //Relaciones
     @OneToMany(mappedBy = "demografia")
     @ToString.Exclude
     private List<Manga> mangas;

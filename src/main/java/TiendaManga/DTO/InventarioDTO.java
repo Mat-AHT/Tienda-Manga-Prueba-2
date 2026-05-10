@@ -1,13 +1,12 @@
 package TiendaManga.DTO;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data
 public class InventarioDTO {
+
     private Integer id_inventario;
-    private String nombre;
+    private Integer stock;
     private String bodega;
-    private List<String> nombresMangas;
+    
 }

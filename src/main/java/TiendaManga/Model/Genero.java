@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Generos")
+@Table(name = "GENEROS")
 public class Genero {
 
     @Id
@@ -29,6 +29,7 @@ public class Genero {
     @Size(min = 4, max = 60)
     private String nombreGenero;
 
+    //Relaciones
     @OneToMany(mappedBy = "genero")
     private List<Manga> mangas;
 }

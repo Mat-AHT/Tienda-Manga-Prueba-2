@@ -19,11 +19,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "resenas")
+@Table(name = "RESEÑA")
 public class Resena {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id_resena;
 
     @Min(1) @Max(5)
     private Integer calificacion;
