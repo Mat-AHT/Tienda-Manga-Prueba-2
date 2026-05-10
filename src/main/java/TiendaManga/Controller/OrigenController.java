@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import TiendaManga.DTO.OrigenDTO;
 import TiendaManga.Model.Origen;
 import TiendaManga.Service.OrigenService;
 
@@ -23,8 +24,8 @@ public class OrigenController {
     private OrigenService origenService;
 
     @GetMapping
-    public ResponseEntity<List<Origen>> listarOrigen(){
-        List<Origen> origen = origenService.listarOrigen();
+    public ResponseEntity<List<OrigenDTO>> listarOrigen(){
+        List<OrigenDTO> origen = origenService.listarOrigen();
         if(origen.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -32,12 +33,13 @@ public class OrigenController {
     }
 
     @GetMapping("{id_origen}")
-    public ResponseEntity<Origen> buscarOrigen(@PathVariable Integer id_origen){
-        Origen origen1 = origenService.buscarOrigen(id_origen);
-        if(origen1 != null){
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<OrigenDTO> buscarOrigen(@PathVariable Integer id_origen){
+        try{
+            OrigenDTO origen = origenService.buscarOrigen(id_origen);
+            return new ResponseEntity<>(origen, HttpStatus.OK);
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
     @PostMapping

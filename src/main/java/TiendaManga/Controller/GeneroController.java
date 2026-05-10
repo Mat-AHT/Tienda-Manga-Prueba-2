@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import TiendaManga.DTO.GeneroDTO;
 import TiendaManga.Model.Genero;
 import TiendaManga.Service.GeneroService;
 
@@ -25,8 +26,8 @@ public class GeneroController {
     private GeneroService generoService;
 
     @GetMapping
-    public ResponseEntity<List<Genero>> listarGeneros(){
-        List<Genero> generos = generoService.listarGeneros();
+    public ResponseEntity<List<GeneroDTO>> listarGeneros(){
+        List<GeneroDTO> generos = generoService.listarGeneros();
         if(generos.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -34,12 +35,13 @@ public class GeneroController {
     }
 
     @GetMapping("{id_genero}")
-    public ResponseEntity<Genero> buscarGenero(@PathVariable Integer id_genero){
-        Genero genero1 = generoService.buscarGenero(id_genero);
-        if(genero1 != null){
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<GeneroDTO> buscarGenero(@PathVariable Integer id_genero){
+        try{
+            GeneroDTO genero = generoService.buscarGenero(id_genero);
+            return new ResponseEntity<>(genero, HttpStatus.OK);
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
     @PostMapping

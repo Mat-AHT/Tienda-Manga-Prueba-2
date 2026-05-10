@@ -71,7 +71,7 @@ public class AutorController {
     public ResponseEntity<String> eliminarAutor(@PathVariable Integer id_autor){
         String resultado = autorService.eliminarAutor(id_autor);
         if(resultado.equals("El autor ha sido eliminado.")){
-            return new ResponseEntity<>(resultado, HttpStatus.OK); 
+            return new ResponseEntity<>(resultado, HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
