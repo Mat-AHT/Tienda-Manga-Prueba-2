@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import TiendaManga.Model.Pago;
 import TiendaManga.Repository.PagoRepository;
+import TiendaManga.Repository.MangaRepository;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -29,22 +30,13 @@ public class PagoService {
 
 
     public Pago registrarPago(Pago pago){
-        pago.setFechaTransaccion(LocalDateTime.now());
+        pago.setfechaTransaccion(LocalDateTime.now());
         return pagoRepository.save(pago);
     }
     public String eliminar(Integer id){
-        try{
-            Pago pago = pagoRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("el pago con el id '" + id +"' no existe"));
-            pagoRepository.delete(pago);
-            return "el pago ha sido retirado";
-        }catch (RuntimeException e){
-            return e.getMessage();
-        }
-    }
-    // llame a la query
-    public List<Pago> buscarHistorialPorUsuario(Integer usuarioId) {
-        return pagoRepository.buscarHistorialPorUsuario(usuarioId);
+        Pago pago = buscarPorId(id);
+        pagoRepository.delete(pago);
+        return "el pago con el id "+ id + " ha sido eliminado";
     }
     
 

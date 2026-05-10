@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,7 @@ import TiendaManga.Model.Usuario;
 import TiendaManga.Service.UsuarioService;
 
 @RestController
-@RequestMapping("/api/v1/usuarios")
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioServices;
@@ -50,8 +51,8 @@ public class UsuarioController {
     @DeleteMapping("/{id_usuario}")
     public ResponseEntity<String> eliminarUsuario(@PathVariable Integer id_usuario) {
         String resultado = usuarioServices.eliminar(id_usuario);
-        if (resultado.equals("El usuario ha sido eliminado.")) {
-            return new ResponseEntity<>(resultado, HttpStatus.OK);
+        if(resultado != null && !resultado.contains("no existe")){
+            return new ResponseEntity<>(resultado,HttpStatus.OK);
         }
         return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
     }

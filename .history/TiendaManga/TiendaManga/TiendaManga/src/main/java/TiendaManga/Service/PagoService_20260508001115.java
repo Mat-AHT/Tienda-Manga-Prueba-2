@@ -42,10 +42,6 @@ public class PagoService {
             return e.getMessage();
         }
     }
-    // llame a la query
-    public List<Pago> buscarHistorialPorUsuario(Integer usuarioId) {
-        return pagoRepository.buscarHistorialPorUsuario(usuarioId);
-    }
     
 
 

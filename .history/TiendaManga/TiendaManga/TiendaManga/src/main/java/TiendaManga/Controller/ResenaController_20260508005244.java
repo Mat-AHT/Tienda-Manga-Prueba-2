@@ -18,7 +18,7 @@ import TiendaManga.Model.Resena;
 import TiendaManga.Service.ResenaService;
 
 @RestController
-@RequestMapping("/api/v1/resenas")
+@RequestMapping("/api/resenas")
 public class ResenaController {
     @Autowired
     private ResenaService resenaServices;
@@ -58,7 +58,7 @@ public class ResenaController {
     @DeleteMapping("/{id_resena}")
     public ResponseEntity<String> eliminarResena(@PathVariable Integer id_resena) {
         String resultado = resenaServices.eliminar(id_resena);
-        if (resultado.equals("La reseña ha sido eliminada.")) {
+        if (resultado.contains("retirada")) {
             return new ResponseEntity<>(resultado, HttpStatus.OK);
         }
         return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);

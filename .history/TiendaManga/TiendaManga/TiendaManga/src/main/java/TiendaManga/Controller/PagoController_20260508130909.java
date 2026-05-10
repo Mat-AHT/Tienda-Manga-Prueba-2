@@ -54,12 +54,4 @@ public class PagoController {
         }
         return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
     }
-    @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<Pago>> buscarHistorialPorUsuario(@PathVariable Integer usuarioId) {
-        List<Pago> pagos = pagoService.buscarHistorialPorUsuario(usuarioId);
-        if (pagos.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(pagos, HttpStatus.OK);
-    }
 }

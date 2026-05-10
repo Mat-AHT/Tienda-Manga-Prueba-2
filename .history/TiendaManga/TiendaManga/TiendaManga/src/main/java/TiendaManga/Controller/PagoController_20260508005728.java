@@ -39,8 +39,8 @@ public class PagoController {
         return ResponseEntity.notFound().build();
     }
     @PostMapping
-    public ResponseEntity<Pago> procesarPago(@RequestBody Pago pagoNuevo) {
-        Pago pago = pagoService.registrarPago(pagoNuevo);
+    public ResponseEntity<Pago> procesarPago(@RequestBody Pago pago1) {
+        Pago pago = pagoService.registrarPago(pago1);
         if (pago != null) {
             return new ResponseEntity<>(pago, HttpStatus.CREATED);
         }
@@ -49,17 +49,9 @@ public class PagoController {
     @DeleteMapping("/{id_pago}")
     public ResponseEntity<String> eliminarPago(@PathVariable Integer id_pago) {
         String resultado = pagoService.eliminar(id_pago);
-        if (resultado.equals("El pago ha sido eliminado.")) {
+        if (resultado.contains("retirado")) {
             return new ResponseEntity<>(resultado, HttpStatus.OK);
         }
         return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
-    }
-    @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<Pago>> buscarHistorialPorUsuario(@PathVariable Integer usuarioId) {
-        List<Pago> pagos = pagoService.buscarHistorialPorUsuario(usuarioId);
-        if (pagos.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(pagos, HttpStatus.OK);
     }
 }

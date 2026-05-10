@@ -33,18 +33,9 @@ public class PagoService {
         return pagoRepository.save(pago);
     }
     public String eliminar(Integer id){
-        try{
-            Pago pago = pagoRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("el pago con el id '" + id +"' no existe"));
-            pagoRepository.delete(pago);
-            return "el pago ha sido retirado";
-        }catch (RuntimeException e){
-            return e.getMessage();
-        }
-    }
-    // llame a la query
-    public List<Pago> buscarHistorialPorUsuario(Integer usuarioId) {
-        return pagoRepository.buscarHistorialPorUsuario(usuarioId);
+        Pago pago = buscarPorId(id);
+        pagoRepository.delete(pago);
+        return "el pago con el id "+ id + " ha sido eliminado";
     }
     
 
