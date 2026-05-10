@@ -19,13 +19,13 @@ public class GeneroService {
 
     public List<GeneroDTO> listarGeneros(){
         return generoRepository.findAll().stream()
-        .map(this::convertirADTO)
+        .map(this::convertirGeneroDTO)
         .toList();
     }
 
     public GeneroDTO buscarGenero(Integer id_genero){
         Genero genero = generoRepository.findById(id_genero).orElseThrow(() -> new RuntimeException("Genero no encontrado!"));
-        return convertirADTO(genero);
+        return convertirGeneroDTO(genero);
     }
     
     public Genero guardarGenero(Genero genero){
@@ -53,15 +53,10 @@ public class GeneroService {
         }
     }
 
-    private GeneroDTO convertirADTO(Genero genero) {
+    private GeneroDTO convertirGeneroDTO(Genero genero) {
         GeneroDTO gdto = new GeneroDTO();
         gdto.setId_genero(genero.getId_genero());
-        gdto.setNombre(genero.getNombreGenero());
-
-        if(genero.getMangas() =! null){
-            gdto.setNombresMangas(genero.getMangas().getNombreGenero);
-        }
-
+        gdto.setNombreGenero(genero.getNombreGenero());
         return gdto;
     }
 
