@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import TiendaManga.DTO.GeneroDTO;
 import TiendaManga.Model.Genero;
-import TiendaManga.Repository.MangaRepository;
 import jakarta.transaction.Transactional;
 import TiendaManga.Repository.GeneroRepository;
 
@@ -17,23 +17,23 @@ public class GeneroService {
     @Autowired
     private GeneroRepository generoRepository;
 
-    @Autowired
-    private MangaRepository mangaRepository;
-
-    public List<Genero> obtenerTodos(){
-        return generoRepository.findAll();
+    public List<GeneroDTO> listarGeneros(){
+        return generoRepository.findAll().stream()
+        .map(this::convertirADTO)
+        .toList();
     }
 
-    public Genero buscarGenero(Integer id){
-        return generoRepository.findById(id).orElseThrow(() -> new RuntimeException("El genero no existe en los registros"));
+    public GeneroDTO buscarGenero(Integer id_genero){
+        Genero genero = generoRepository.findById(id_genero).orElseThrow(() -> new RuntimeException("Genero no encontrado!"));
+        return convertirADTO(genero);
     }
     
     public Genero guardarGenero(Genero genero){
         return generoRepository.save(genero);
     }
 
-    public Genero editarGenero(Integer id, Genero genero){
-        Genero genero1 = generoRepository.findById(id).orElseThrow(() -> new RuntimeException("No se ha encontrado el genero."));
+    public Genero editarGenero(Integer id_genero, Genero genero){
+        Genero genero1 = generoRepository.findById(id_genero).orElseThrow(() -> new RuntimeException("No se ha encontrado el genero."));
         if(genero.getNombreGenero() != null){
             genero1.setNombreGenero(genero.getNombreGenero());
         }
@@ -41,6 +41,28 @@ public class GeneroService {
             genero1.setMangas(genero.getMangas());
         }
         return generoRepository.save(genero);
+    }
+
+    public String eliminarGenero(Integer id_genero){
+        try{
+            Genero genero = generoRepository.findById(id_genero).orElseThrow(() -> new RuntimeException("No se ha encontrado el Genero con el ID " + id_genero));
+            generoRepository.delete(genero);
+            return "El genero ha sido eliminado";
+        }catch(RuntimeException e){
+            return e.getMessage();
+        }
+    }
+
+    private GeneroDTO convertirADTO(Genero genero) {
+        GeneroDTO gdto = new GeneroDTO();
+        gdto.setId_genero(genero.getId_genero());
+        gdto.setNombre(genero.getNombreGenero());
+
+        if(genero.getMangas() =! null){
+            gdto.setNombresMangas(genero.getMangas().getNombreGenero);
+        }
+
+        return gdto;
     }
 
 
