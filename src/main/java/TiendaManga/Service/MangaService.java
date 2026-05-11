@@ -25,13 +25,13 @@ public class MangaService {
         return mangaRepository.save(manga);
     }
 
-    public MangaDTO buscarManga(Integer id){
-        Manga manga = mangaRepository.findById(id).orElseThrow(() -> new RuntimeException("No se ha encontrado el manga con la ID " + id));
+    public MangaDTO buscarManga(Integer id_manga){
+        Manga manga = mangaRepository.findById(id_manga).orElseThrow(() -> new RuntimeException("No se ha encontrado el manga con la ID " + id_manga));
         return convertirMangaDTO(manga);
     }
 
-    public Manga editarManga(Integer id, Manga manga){
-        Manga manga1 = mangaRepository.findById(id).orElseThrow(() -> new RuntimeException("No se ha encontrado el manga."));
+    public Manga editarManga(Integer id_manga, Manga manga){
+        Manga manga1 = mangaRepository.findById(id_manga).orElseThrow(() -> new RuntimeException("No se ha encontrado el manga."));
         if(manga.getNombre() != null){
             manga1.setNombre(manga.getNombre());
         }
@@ -44,9 +44,9 @@ public class MangaService {
         return mangaRepository.save(manga1);
     }
 
-    public String eliminarManga(Integer id){
+    public String eliminarManga(Integer id_manga){
         try{
-            Manga manga = mangaRepository.findById(id).orElseThrow(() -> new RuntimeException("No es posible eliminar el manga con ID '" + id + "' ya que no existe!."));
+            Manga manga = mangaRepository.findById(id_manga).orElseThrow(() -> new RuntimeException("No es posible eliminar el manga con ID '" + id_manga + "' ya que no existe!."));
             mangaRepository.delete(manga);
             return "El manga '" + manga.getNombre() + "' ha sido eliminado!.";
         }catch (RuntimeException e) {
