@@ -1,4 +1,4 @@
-package TiendaManga.TiendaManga;
+package TiendaManga;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
