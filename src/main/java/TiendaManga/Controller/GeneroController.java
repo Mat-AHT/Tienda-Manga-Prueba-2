@@ -66,7 +66,7 @@ public class GeneroController {
         }
     }
 
-    @DeleteMapping("{/id_genero}")
+    @DeleteMapping("/{id_genero}")
     public ResponseEntity<String> eliminarGenero(@PathVariable Integer id_genero){
         String resultado = generoService.eliminarGenero(id_genero);
         if(resultado.equals("El genero ha sido eliminado")){
