@@ -64,7 +64,7 @@ public class InventarioController {
         }
     }
 
-    @DeleteMapping("{/id_inventario}")
+    @DeleteMapping("/{id_inventario}")
     public ResponseEntity<String> eliminarInventario(@PathVariable Integer id_inventario){
         String resultado = inventarioService.eliminarInventario(id_inventario);
         if(resultado.equals("El inventario ha sido eliminado")){

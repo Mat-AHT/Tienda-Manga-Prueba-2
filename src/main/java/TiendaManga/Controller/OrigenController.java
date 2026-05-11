@@ -64,7 +64,7 @@ public class OrigenController {
         }
     }
 
-    @DeleteMapping("{/id_origen}")
+    @DeleteMapping("/{id_origen}")
     public ResponseEntity<String> eliminarOrigen(@PathVariable Integer id_origen){
         String resultado = origenService.eliminarOrigen(id_origen);
         if(resultado.equals("El origen ha sido eliminado")){
