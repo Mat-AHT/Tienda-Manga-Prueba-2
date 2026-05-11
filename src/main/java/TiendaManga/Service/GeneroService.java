@@ -38,7 +38,7 @@ public class GeneroService {
         if(genero.getMangas() != null){
             genero1.setMangas(genero.getMangas());
         }
-        return generoRepository.save(genero);
+        return generoRepository.save(genero1);
     }
 
     public String eliminarGenero(Integer id_genero){

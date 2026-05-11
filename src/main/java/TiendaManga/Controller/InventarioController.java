@@ -31,7 +31,7 @@ public class InventarioController {
         if(inventario.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(inventario, HttpStatus.OK);
     }
 
     @GetMapping("{id_Inventaro}")

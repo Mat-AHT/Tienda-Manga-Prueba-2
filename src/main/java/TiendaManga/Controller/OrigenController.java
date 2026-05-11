@@ -31,7 +31,7 @@ public class OrigenController {
         if(origen.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(origen, HttpStatus.OK);
     }
 
     @GetMapping("{id_origen}")
