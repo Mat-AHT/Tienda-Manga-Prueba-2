@@ -11,13 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import TiendaManga.DTO.InventarioDTO;
 import TiendaManga.Model.Inventario;
 import TiendaManga.Service.InventarioService;
-//hola ahi esta el cambio
+
 @RestController
+@RequestMapping("/api/v1/inventarios")
 public class InventarioController {
     
     @Autowired
