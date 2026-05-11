@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -29,8 +31,9 @@ public class Manga {
     @NotBlank(message = "El nombre del Manga debe tener al menos 4 caracteres.")
     private String nombre;
 
-    @Size(min = 0, max = 10)
-    @NotNull(message = "El precio no puede quedar en 0")
+    @Min(value = 0, message = "El valor minimo debe ser $0")
+    @Max(value = 10000000, message = "El valor maximo debe ser $10.000.000")
+    @NotNull
     private Integer precio;
     
     @Size(min = 4, max = 60)
