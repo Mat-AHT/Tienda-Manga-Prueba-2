@@ -18,9 +18,7 @@ public class GeneroService {
     private GeneroRepository generoRepository;
 
     public List<GeneroDTO> listarGeneros(){
-        return generoRepository.findAll().stream()
-        .map(this::convertirGeneroDTO)
-        .toList();
+        return generoRepository.findAll().stream().map(this::convertirGeneroDTO).toList();
     }
 
     public GeneroDTO buscarGenero(Integer id_genero){

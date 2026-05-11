@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import TiendaManga.DTO.PagoDTO;
 import TiendaManga.Model.Pago;
 import TiendaManga.Repository.PagoRepository;
 import jakarta.transaction.Transactional;
@@ -19,14 +18,13 @@ public class PagoService {
     private PagoRepository pagoRepository;
 
     
-    public List<PagoDTO> obtenerTodos(){
-        return pagoRepository.findAll().stream().map(this::convertirPagoDTO).toList();
+    public List<Pago> obtenerTodos(){
+        return pagoRepository.findAll();
     }
 
-    public PagoDTO buscarPorId(Integer id){
-        Pago pago = pagoRepository.findById(id)
+    public Pago buscarPorId(Integer id){
+        return pagoRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("el registro de pago no existe"));
-            return convertirPagoDTO(pago);
     }
 
 
@@ -45,18 +43,11 @@ public class PagoService {
         }
     }
     // llame a la query
-    public List<PagoDTO> buscarHistorialPorUsuario(Integer usuarioId) {
-        return pagoRepository.buscarHistorialPorUsuario(usuarioId).stream().map(this::convertirPagoDTO).toList();
+    public List<Pago> buscarHistorialPorUsuario(Integer usuarioId) {
+        return pagoRepository.buscarHistorialPorUsuario(usuarioId);
     }
-   
-    private PagoDTO convertirPagoDTO(Pago pago){
-        PagoDTO dto = new PagoDTO();
-        dto.setId_pago(pago.getId());
-        dto.setFechaTransaccion(pago.getFechaTransaccion());
-        dto.setMetodoPago(pago.getMetodoPago());
-        dto.setMonto(pago.getMonto());
-        return dto;
-    }
+    
+
 
 
 }

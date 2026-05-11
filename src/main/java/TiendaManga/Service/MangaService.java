@@ -60,6 +60,7 @@ public class MangaService {
 
     public MangaDTO convertirMangaDTO(Manga manga){
         MangaDTO dto = new MangaDTO();
+        dto.setId_manga(manga.getId_manga());
         dto.setNombre(manga.getNombre());
         dto.setPrecio(manga.getPrecio());
         dto.setSinopsis(manga.getSinopsis());

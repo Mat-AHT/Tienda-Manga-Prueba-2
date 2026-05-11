@@ -50,7 +50,10 @@ public class CarritoService {
 
     public CarritoDTO convertirCarritoDTO(Carrito carrito){
         CarritoDTO dto = new CarritoDTO();
+        dto.setId_carrito(carrito.getId_carrito());
         dto.setCantidad(carrito.getCantidad());
+        dto.setFecha_agregado(carrito.getFecha_agregado());
+
         return dto;
     }
 }

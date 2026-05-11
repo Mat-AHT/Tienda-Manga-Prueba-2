@@ -50,6 +50,7 @@ public class DemografiaService {
 
     public DemografiaDTO convertirDemografiaDTO(Demografia demografia){
         DemografiaDTO dto = new DemografiaDTO();
+        dto.setId_demografia(demografia.getId_demografia());
         dto.setNombreDemografia(demografia.getNombreDemografia());
         return dto;
     }
