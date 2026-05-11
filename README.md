@@ -2,7 +2,7 @@ Este proyecto consiste en una API desarrollada con Spring Boot para la gestión 
 
 Se destaca la integración de herramientas de trabajo colaborativo y el control de versiones mediante Git. El desarrollo respeta la estructura del patrón CSR , garantizando respuestas REST estandarizadas y correctas.
 
-Modelado Inicial: El diseño original de las tablas y sus relaciones (modelo relacional) se realizó utilizando las herramientas de Oracle Database.
+Modelado Inicial: El diseño original de las tablas y sus relaciones se realizó utilizando las herramientas de Oracle Database.
 
 Migración a MySQL: Debido a los requerimientos del entorno local, el DDL generado en Oracle fue adaptado y transformado exitosamente para su ejecución en MySQL.
 
