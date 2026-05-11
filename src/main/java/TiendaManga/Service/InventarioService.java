@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import TiendaManga.DTO.InventarioDTO;
 import TiendaManga.Model.Inventario;
 import TiendaManga.Repository.InventarioRepository;
 import jakarta.transaction.Transactional;
@@ -16,13 +17,15 @@ public class InventarioService {
     @Autowired
     private InventarioRepository invRepository;
 
-    public List<Inventario> listarInventario(){
-        return invRepository.findAll();
+    public List<InventarioDTO> listarInventario(){
+        return invRepository.findAll().stream().map(this::convertirInventarioDTO).toList();
     }
 
-    public Inventario buscarInventario(Integer id_inventario){
-        return invRepository.findById(id_inventario).orElseThrow(() -> new RuntimeException("El manga no existe en el inventario"));
+    public InventarioDTO buscarInventario(Integer id_inventario){
+        Inventario inventario = invRepository.findById(id_inventario).orElseThrow(() -> new RuntimeException("Genero no encontrado!"));
+        return convertirInventarioDTO(inventario);
     }
+    
 
     public Inventario guardarInventario(Inventario inventario){
         return invRepository.save(inventario);
@@ -51,8 +54,12 @@ public class InventarioService {
 
     }
 
-    
-
-
+    private InventarioDTO convertirInventarioDTO(Inventario inventario) {
+        InventarioDTO invdto = new InventarioDTO();
+        invdto.setId_inventario(inventario.getId_inventario());
+        invdto.setStock(inventario.getStock());
+        invdto.setBodega(inventario.getBodega());
+        return invdto;
+        }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import TiendaManga.DTO.InventarioDTO;
 import TiendaManga.Model.Inventario;
 import TiendaManga.Service.InventarioService;
 //hola ahi esta el cambio
@@ -23,8 +24,8 @@ public class InventarioController {
     private InventarioService inventarioService;
 
     @GetMapping
-    public ResponseEntity<List<Inventario>> listarInventario(){
-        List<Inventario> inventario = inventarioService.listarInventario();
+    public ResponseEntity<List<InventarioDTO>> listarInventario(){
+        List<InventarioDTO> inventario = inventarioService.listarInventario();
         if(inventario.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -32,12 +33,13 @@ public class InventarioController {
     }
 
     @GetMapping("{id_Inventaro}")
-    public ResponseEntity<Inventario> buscarInventario(@PathVariable Integer id_inventario){
-        Inventario inventario1 = inventarioService.buscarInventario(id_inventario);
-        if(inventario1 != null){
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<InventarioDTO> buscarInventario(@PathVariable Integer id_inventario){
+        try{
+            InventarioDTO inv = inventarioService.buscarInventario(id_inventario);
+            return new ResponseEntity<>(inv, HttpStatus.OK);
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
