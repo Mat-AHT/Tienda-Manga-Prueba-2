@@ -51,7 +51,7 @@ public class PagoService {
    
     private PagoDTO convertirPagoDTO(Pago pago){
         PagoDTO dto = new PagoDTO();
-        dto.setId_pago(pago.getId());
+        dto.setId_pago(pago.getId_pago());
         dto.setFechaTransaccion(pago.getFechaTransaccion());
         dto.setMetodoPago(pago.getMetodoPago());
         dto.setMonto(pago.getMonto());
