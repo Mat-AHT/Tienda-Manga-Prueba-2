@@ -1,7 +1,6 @@
 package TiendaManga.Model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -39,8 +37,5 @@ public class Carrito {
 
     @ManyToOne @JoinColumn(name = "manga_id")
     private Manga manga;
-    
-    @OneToMany(mappedBy = "genero")
-    private List<Manga> mangas;
 
 }
