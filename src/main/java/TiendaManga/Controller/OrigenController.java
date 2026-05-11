@@ -45,11 +45,11 @@ public class OrigenController {
     }
 
     @PostMapping
-    public ResponseEntity<Origen> guardarGenero(@RequestBody Origen origen1){
+    public ResponseEntity<Origen> guardarOrigen(@RequestBody Origen origen1){
         Origen origen = origenService.guardarOrigen(origen1);
         if(origen != null){
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
+            return new ResponseEntity<>(origen, HttpStatus.CREATED);
+        }   
         else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
