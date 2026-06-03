@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import TiendaManga.DTO.MangaDTO;
 import TiendaManga.Model.Manga;
 import TiendaManga.Service.MangaService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/mangas")
@@ -35,7 +36,7 @@ public class MangaController {
     }
 
     @GetMapping("/{id_manga}")
-    public ResponseEntity<MangaDTO> buscarMangaId(@PathVariable Integer id_manga){
+    public ResponseEntity<MangaDTO> buscarMangaId(@Valid @PathVariable Integer id_manga){
         try{
             MangaDTO manga = mangaService.buscarManga(id_manga);
             return new ResponseEntity<>(manga, HttpStatus.OK);
@@ -45,7 +46,7 @@ public class MangaController {
     }
 
     @GetMapping("/genero/{id_genero}")
-    public ResponseEntity<List<MangaDTO>> filtrarPorgenero(@PathVariable Integer id_genero){
+    public ResponseEntity<List<MangaDTO>> filtrarPorgenero(@Valid @PathVariable Integer id_genero){
         List<MangaDTO> mangas = mangaService.buscarPorGenero(id_genero);
         if(mangas.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -54,7 +55,7 @@ public class MangaController {
     }
 
     @PostMapping
-    public ResponseEntity<Manga> guardarManga(@RequestBody Manga mangaNuevo){
+    public ResponseEntity<Manga> guardarManga(@Valid @RequestBody Manga mangaNuevo){
         Manga manga = mangaService.guardarManga(mangaNuevo);
         if(manga != null){
             return new ResponseEntity<>(manga, HttpStatus.CREATED);
@@ -64,7 +65,7 @@ public class MangaController {
     }
 
     @PutMapping("/{id_manga}")
-    public ResponseEntity<Manga> editarManga(@PathVariable Integer id_manga, @RequestBody Manga manga){
+    public ResponseEntity<Manga> editarManga(@Valid @PathVariable Integer id_manga, @RequestBody Manga manga){
         Manga mangaEditado = mangaService.editarManga(id_manga, manga);
         if(mangaEditado != null){
             return new ResponseEntity<>(mangaEditado, HttpStatus.OK);
@@ -74,7 +75,7 @@ public class MangaController {
     }
 
     @DeleteMapping("/{id_manga}")
-    public ResponseEntity<String> eliminarManga(@PathVariable Integer id_manga){
+    public ResponseEntity<String> eliminarManga(@Valid @PathVariable Integer id_manga){
         String resultado = mangaService.eliminarManga(id_manga);
         if(resultado != null){
             return new ResponseEntity<>(resultado, HttpStatus.OK);

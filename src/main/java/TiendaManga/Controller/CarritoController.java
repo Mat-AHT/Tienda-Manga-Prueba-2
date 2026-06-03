@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import TiendaManga.DTO.CarritoDTO;
 import TiendaManga.Model.Carrito;
 import TiendaManga.Service.CarritoService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/carritos")
@@ -35,7 +36,7 @@ public class CarritoController {
     }
 
     @GetMapping("{id_carrito}")
-    public ResponseEntity<CarritoDTO> buscarCarrito(@PathVariable Integer id_carrito){
+    public ResponseEntity<CarritoDTO> buscarCarrito(@Valid @PathVariable Integer id_carrito){
         try{
             CarritoDTO carrito = carritoService.buscarCarrito(id_carrito);
             return new ResponseEntity<>(carrito, HttpStatus.OK);
@@ -46,7 +47,7 @@ public class CarritoController {
         
 
     @PostMapping
-    public ResponseEntity<Carrito> guardarCarrito(@RequestBody Carrito carrito1){
+    public ResponseEntity<Carrito> guardarCarrito(@Valid @RequestBody Carrito carrito1){
         Carrito carrito = carritoService.guardarCarrito(carrito1);
         if(carrito != null){
             return new ResponseEntity<>(carrito, HttpStatus.CREATED);
@@ -57,7 +58,7 @@ public class CarritoController {
     }
 
     @PutMapping
-    public ResponseEntity<Carrito> editarCarrito(@PathVariable Integer id_carrito, @RequestBody Carrito carrito){
+    public ResponseEntity<Carrito> editarCarrito(@Valid @PathVariable Integer id_carrito, @RequestBody Carrito carrito){
         Carrito carritoEditado = carritoService.editarCarrito(id_carrito, carrito);
         if(carritoEditado != null){
             return new ResponseEntity<>(carritoEditado, HttpStatus.OK);
@@ -67,8 +68,8 @@ public class CarritoController {
         }
     }
 
-    @DeleteMapping("/{id_autor}")
-    public ResponseEntity<String> eliminarCarrito(@PathVariable Integer id_carrito){
+    @DeleteMapping("/{id_carrito}")
+    public ResponseEntity<String> eliminarCarrito(@Valid @PathVariable Integer id_carrito){
         String resultado = carritoService.eliminarCarrito(id_carrito);
         if(resultado.equals("El carrito ha sido eliminado.")){
             return new ResponseEntity<>(resultado, HttpStatus.OK); 

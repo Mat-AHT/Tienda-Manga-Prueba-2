@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import TiendaManga.DTO.DemografiaDTO;
 import TiendaManga.Model.Demografia;
 import TiendaManga.Service.DemografiaService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/demografias")
@@ -35,7 +36,7 @@ public class DemografiaController {
     }
 
     @GetMapping("{id_demografia}")
-    public ResponseEntity<DemografiaDTO> buscarDemografia(@PathVariable Integer id_demografia){
+    public ResponseEntity<DemografiaDTO> buscarDemografia(@Valid @PathVariable Integer id_demografia){
         try{
             DemografiaDTO demografia = demografiaService.buscarDemografia(id_demografia);
             return new ResponseEntity<>(demografia, HttpStatus.OK);
@@ -46,7 +47,7 @@ public class DemografiaController {
     }
 
     @PostMapping
-    public ResponseEntity<Demografia> guardarDemografia(@RequestBody Demografia demografia1){
+    public ResponseEntity<Demografia> guardarDemografia(@Valid @RequestBody Demografia demografia1){
         Demografia demografia = demografiaService.guardarDemografia(demografia1);
         if(demografia != null){
             return new ResponseEntity<>(demografia, HttpStatus.CREATED);
@@ -57,7 +58,7 @@ public class DemografiaController {
     }
 
     @PutMapping
-    public ResponseEntity<Demografia> editarDemografia(@PathVariable Integer id_demografia, @RequestBody Demografia demografia){
+    public ResponseEntity<Demografia> editarDemografia(@Valid @PathVariable Integer id_demografia, @RequestBody Demografia demografia){
         Demografia demografiaEditada = demografiaService.editarDemografia(id_demografia, demografia);
         if(demografiaEditada != null){
             return new ResponseEntity<>(demografiaEditada, HttpStatus.OK);
@@ -68,7 +69,7 @@ public class DemografiaController {
     }
 
     @DeleteMapping("/{id_demografia}")
-    public ResponseEntity<String> eliminarDemografia(@PathVariable Integer id_demografia){
+    public ResponseEntity<String> eliminarDemografia(@Valid @PathVariable Integer id_demografia){
         String resultado = demografiaService.eliminarDemografia(id_demografia);
         if(resultado.equals("La demografia ha sido eliminada.")){
             return new ResponseEntity<>(resultado, HttpStatus.OK); 

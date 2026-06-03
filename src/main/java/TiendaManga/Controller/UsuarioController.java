@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import TiendaManga.DTO.UsuarioDTO;
 import TiendaManga.Model.Usuario;
 import TiendaManga.Service.UsuarioService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/usuarios")
@@ -35,7 +36,7 @@ public class UsuarioController {
     }
     
     @GetMapping("/{id_usuario}")
-    public ResponseEntity<UsuarioDTO> buscarUsuario(@PathVariable Integer id_usuario){
+    public ResponseEntity<UsuarioDTO> buscarUsuario(@Valid @PathVariable Integer id_usuario){
         try{
             UsuarioDTO usuario = usuarioServices.buscaPorId(id_usuario);
             return new ResponseEntity<>(usuario,HttpStatus.OK);
@@ -44,7 +45,7 @@ public class UsuarioController {
         }
     }
     @PostMapping
-    public ResponseEntity<Usuario> guardarUsuario(@RequestBody Usuario usuarioNuevo){
+    public ResponseEntity<Usuario> guardarUsuario(@Valid @RequestBody Usuario usuarioNuevo){
         Usuario usuario = usuarioServices.guardar(usuarioNuevo);
         if(usuario != null){
             return new ResponseEntity<>(usuario, HttpStatus.CREATED);
@@ -53,7 +54,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id_usuario}")
-    public ResponseEntity<Usuario> editarUsuario(@PathVariable Integer id_usuario, @RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> editarUsuario(@Valid @PathVariable Integer id_usuario, @RequestBody Usuario usuario) {
         Usuario usuarioEditado = usuarioServices.actualizar(id_usuario, usuario);
         if (usuarioEditado != null) {
             return new ResponseEntity<>(usuarioEditado, HttpStatus.OK);
@@ -61,7 +62,7 @@ public class UsuarioController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @DeleteMapping("/{id_usuario}")
-    public ResponseEntity<String> eliminarUsuario(@PathVariable Integer id_usuario) {
+    public ResponseEntity<String> eliminarUsuario(@Valid @PathVariable Integer id_usuario) {
         String resultado = usuarioServices.eliminar(id_usuario);
         if (resultado.equals("El usuario ha sido eliminado.")) {
             return new ResponseEntity<>(resultado, HttpStatus.OK);

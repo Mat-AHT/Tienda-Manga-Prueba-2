@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import TiendaManga.DTO.PagoDTO;
 import TiendaManga.Model.Pago;
 import TiendaManga.Service.PagoService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/pagos")
@@ -34,7 +35,7 @@ public class PagoController {
         return new ResponseEntity<>(pagos, HttpStatus.OK);
     }
     @GetMapping("/{id_pago}")
-    public ResponseEntity<PagoDTO> buscarPago(@PathVariable Integer id_pago) {
+    public ResponseEntity<PagoDTO> buscarPago(@Valid @PathVariable Integer id_pago) {
         try{
             PagoDTO pago = pagoService.buscarPorId(id_pago);
             return new ResponseEntity<>(pago, HttpStatus.OK);
@@ -43,7 +44,7 @@ public class PagoController {
         }
     }
     @PostMapping
-    public ResponseEntity<Pago> procesarPago(@RequestBody Pago pagoNuevo) {
+    public ResponseEntity<Pago> procesarPago(@Valid @RequestBody Pago pagoNuevo) {
         Pago pago = pagoService.registrarPago(pagoNuevo);
         if (pago != null) {
             return new ResponseEntity<>(pago, HttpStatus.CREATED);
@@ -51,7 +52,7 @@ public class PagoController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
     @DeleteMapping("/{id_pago}")
-    public ResponseEntity<String> eliminarPago(@PathVariable Integer id_pago) {
+    public ResponseEntity<String> eliminarPago(@Valid @PathVariable Integer id_pago) {
         String resultado = pagoService.eliminar(id_pago);
         if (resultado.equals("El pago ha sido eliminado.")) {
             return new ResponseEntity<>(resultado, HttpStatus.OK);
@@ -59,7 +60,7 @@ public class PagoController {
         return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
     }
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<PagoDTO>> buscarHistorialPorUsuario(@PathVariable Integer usuarioId) {
+    public ResponseEntity<List<PagoDTO>> buscarHistorialPorUsuario(@Valid @PathVariable Integer usuarioId) {
         List<PagoDTO> pagos = pagoService.buscarHistorialPorUsuario(usuarioId);
         if (pagos.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

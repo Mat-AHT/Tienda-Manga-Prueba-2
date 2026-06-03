@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import TiendaManga.DTO.GeneroDTO;
 import TiendaManga.Model.Genero;
 import TiendaManga.Service.GeneroService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/generos")
@@ -35,7 +36,7 @@ public class GeneroController {
     }
 
     @GetMapping("{id_genero}")
-    public ResponseEntity<GeneroDTO> buscarGenero(@PathVariable Integer id_genero){
+    public ResponseEntity<GeneroDTO> buscarGenero(@Valid @PathVariable Integer id_genero){
         try{
             GeneroDTO genero = generoService.buscarGenero(id_genero);
             return new ResponseEntity<>(genero, HttpStatus.OK);
@@ -45,7 +46,7 @@ public class GeneroController {
     }
 
     @PostMapping
-    public ResponseEntity<Genero> guardarGenero(@RequestBody Genero genero1){
+    public ResponseEntity<Genero> guardarGenero(@Valid @RequestBody Genero genero1){
         Genero genero = generoService.guardarGenero(genero1);
         if(genero != null){
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -56,7 +57,7 @@ public class GeneroController {
     }
 
     @PutMapping
-    public ResponseEntity<Genero> editarGenero(@PathVariable Integer id_genero, @RequestBody Genero genero){
+    public ResponseEntity<Genero> editarGenero(@Valid @PathVariable Integer id_genero, @RequestBody Genero genero){
         Genero generoEditado = generoService.editarGenero(id_genero, genero);
         if(generoEditado != null){
             return new ResponseEntity<>(generoEditado, HttpStatus.OK);
@@ -67,7 +68,7 @@ public class GeneroController {
     }
 
     @DeleteMapping("/{id_genero}")
-    public ResponseEntity<String> eliminarGenero(@PathVariable Integer id_genero){
+    public ResponseEntity<String> eliminarGenero(@Valid @PathVariable Integer id_genero){
         String resultado = generoService.eliminarGenero(id_genero);
         if(resultado.equals("El genero ha sido eliminado")){
             return new ResponseEntity<>(resultado,HttpStatus.OK);
