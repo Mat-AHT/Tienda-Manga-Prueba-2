@@ -1,5 +1,6 @@
 package TiendaManga.Model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,15 +30,18 @@ public class Manga {
 
     @Size(min = 4, max = 60)
     @NotBlank(message = "El nombre del Manga debe tener al menos 4 caracteres.")
+    @Column(nullable = false, length = 60)
     private String nombre;
 
     @Min(value = 0, message = "El valor minimo debe ser $0")
     @Max(value = 10000000, message = "El valor maximo debe ser $10.000.000")
     @NotNull
+    @Column(nullable = false, length = 10000000)
     private Integer precio;
     
     @Size(min = 4, max = 60)
     @NotBlank(message = "La sinopsis del Manga debe tener al menos 4 caracteres.")
+    @Column(nullable = false, length = 60)
     private String sinopsis;
 
 

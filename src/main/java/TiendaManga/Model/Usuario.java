@@ -25,14 +25,18 @@ public class Usuario {
     private Integer id_usuario;
 
     @NotBlank(message = "El nombre es obligatorio")
+    @Size(min = 4, max = 60)
+    @Column(nullable = false, length = 60)
     private String nombre;
 
     @Email(message = "Debe ser un correo válido")
-    @Column(unique = true, nullable = false)
+    @Size(min = 4, max = 150)
+    @Column(unique = true, nullable = false, length = 150)
     private String correo;
 
     @NotBlank 
     @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
+    @Column(nullable = false)
     private String contraseña;
     
 }

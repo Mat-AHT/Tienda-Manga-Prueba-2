@@ -1,5 +1,6 @@
 package TiendaManga.Model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,10 +27,12 @@ public class Resena {
     private Integer id_resena;
 
     @Min(1) @Max(5)
+    @Column(nullable = false, length = 5)
     private Integer calificacion;
 
     @NotBlank 
     @Size(max = 255)
+    @Column(nullable = false, length = 255)
     private String comentario;
 
     @ManyToOne @JoinColumn(name = "usuario_id")

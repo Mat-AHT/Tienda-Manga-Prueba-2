@@ -32,6 +32,7 @@ public class Inventario {
 
     @NotBlank(message = "La bodega es obligatoria")
     @Size(min = 4, max = 50)
+    @Column(nullable = false, length = 50)
     private String bodega;
 
     // Relacion
