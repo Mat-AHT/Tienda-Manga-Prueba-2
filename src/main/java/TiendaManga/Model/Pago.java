@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class Pago {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private Integer id;
+    private Integer id_pago;
 
     @NotNull(message = "El monto es obligatorio")
     @Min(value = 1, message = "El monto debe ser al menos 1") 

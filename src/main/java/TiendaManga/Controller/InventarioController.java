@@ -11,13 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import TiendaManga.DTO.InventarioDTO;
 import TiendaManga.Model.Inventario;
 import TiendaManga.Service.InventarioService;
-//hola ahi esta el cambio
+
 @RestController
+@RequestMapping("/api/v1/inventarios")
 public class InventarioController {
     
     @Autowired
@@ -29,7 +31,7 @@ public class InventarioController {
         if(inventario.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(inventario, HttpStatus.OK);
     }
 
     @GetMapping("{id_Inventaro}")
@@ -64,7 +66,7 @@ public class InventarioController {
         }
     }
 
-    @DeleteMapping("{/id_inventario}")
+    @DeleteMapping("/{id_inventario}")
     public ResponseEntity<String> eliminarInventario(@PathVariable Integer id_inventario){
         String resultado = inventarioService.eliminarInventario(id_inventario);
         if(resultado.equals("El inventario ha sido eliminado")){

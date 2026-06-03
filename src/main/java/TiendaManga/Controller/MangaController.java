@@ -19,7 +19,7 @@ import TiendaManga.Model.Manga;
 import TiendaManga.Service.MangaService;
 
 @RestController
-@RequestMapping("/api/mangas")
+@RequestMapping("/api/v1/mangas")
 public class MangaController {
 
     @Autowired

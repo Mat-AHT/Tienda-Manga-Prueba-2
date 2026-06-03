@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import TiendaManga.DTO.OrigenDTO;
@@ -18,6 +19,7 @@ import TiendaManga.Model.Origen;
 import TiendaManga.Service.OrigenService;
 
 @RestController
+@RequestMapping("/api/v1/origenes")
 public class OrigenController {
 
     @Autowired
@@ -29,7 +31,7 @@ public class OrigenController {
         if(origen.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(origen, HttpStatus.OK);
     }
 
     @GetMapping("{id_origen}")
@@ -43,11 +45,11 @@ public class OrigenController {
     }
 
     @PostMapping
-    public ResponseEntity<Origen> guardarGenero(@RequestBody Origen origen1){
+    public ResponseEntity<Origen> guardarOrigen(@RequestBody Origen origen1){
         Origen origen = origenService.guardarOrigen(origen1);
         if(origen != null){
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
+            return new ResponseEntity<>(origen, HttpStatus.CREATED);
+        }   
         else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -64,7 +66,7 @@ public class OrigenController {
         }
     }
 
-    @DeleteMapping("{/id_origen}")
+    @DeleteMapping("/{id_origen}")
     public ResponseEntity<String> eliminarOrigen(@PathVariable Integer id_origen){
         String resultado = origenService.eliminarOrigen(id_origen);
         if(resultado.equals("El origen ha sido eliminado")){

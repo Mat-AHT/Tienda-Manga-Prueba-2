@@ -53,6 +53,7 @@ public class OrigenService {
         OrigenDTO orgn = new OrigenDTO();;
         orgn.setId_origen(origen.getId_origen());
         orgn.setPais(origen.getPais());
+        orgn.setEditorialOriginal(origen.getEditorialOriginal());
         return orgn;
         }
 
