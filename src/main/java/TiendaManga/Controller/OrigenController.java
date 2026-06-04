@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import TiendaManga.DTO.OrigenDTO;
 import TiendaManga.Model.Origen;
 import TiendaManga.Service.OrigenService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/origenes")
@@ -35,7 +36,7 @@ public class OrigenController {
     }
 
     @GetMapping("{id_origen}")
-    public ResponseEntity<OrigenDTO> buscarOrigen(@PathVariable Integer id_origen){
+    public ResponseEntity<OrigenDTO> buscarOrigen(@Valid @PathVariable Integer id_origen){
         try{
             OrigenDTO origen = origenService.buscarOrigen(id_origen);
             return new ResponseEntity<>(origen, HttpStatus.OK);
@@ -45,7 +46,7 @@ public class OrigenController {
     }
 
     @PostMapping
-    public ResponseEntity<Origen> guardarOrigen(@RequestBody Origen origen1){
+    public ResponseEntity<Origen> guardarOrigen(@Valid @RequestBody Origen origen1){
         Origen origen = origenService.guardarOrigen(origen1);
         if(origen != null){
             return new ResponseEntity<>(origen, HttpStatus.CREATED);
@@ -56,7 +57,7 @@ public class OrigenController {
     }
 
     @PutMapping
-    public ResponseEntity<Origen> editarOrigen(@PathVariable Integer id_origen, @RequestBody Origen origen){
+    public ResponseEntity<Origen> editarOrigen(@Valid @PathVariable Integer id_origen, @RequestBody Origen origen){
         Origen origenEditado = origenService.editarOrigen(id_origen, origen);
         if(origenEditado != null){
             return new ResponseEntity<>(origenEditado, HttpStatus.OK);
@@ -67,7 +68,7 @@ public class OrigenController {
     }
 
     @DeleteMapping("/{id_origen}")
-    public ResponseEntity<String> eliminarOrigen(@PathVariable Integer id_origen){
+    public ResponseEntity<String> eliminarOrigen(@Valid @PathVariable Integer id_origen){
         String resultado = origenService.eliminarOrigen(id_origen);
         if(resultado.equals("El origen ha sido eliminado")){
             return new ResponseEntity<>(resultado,HttpStatus.OK);

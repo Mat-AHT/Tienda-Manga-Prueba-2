@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import TiendaManga.DTO.InventarioDTO;
 import TiendaManga.Model.Inventario;
 import TiendaManga.Service.InventarioService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/inventarios")
@@ -35,7 +36,7 @@ public class InventarioController {
     }
 
     @GetMapping("{id_Inventaro}")
-    public ResponseEntity<InventarioDTO> buscarInventario(@PathVariable Integer id_inventario){
+    public ResponseEntity<InventarioDTO> buscarInventario(@Valid @PathVariable Integer id_inventario){
         try{
             InventarioDTO inv = inventarioService.buscarInventario(id_inventario);
             return new ResponseEntity<>(inv, HttpStatus.OK);
@@ -45,7 +46,7 @@ public class InventarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Inventario> guardarInventario(@RequestBody Inventario inventario1){
+    public ResponseEntity<Inventario> guardarInventario(@Valid @RequestBody Inventario inventario1){
         Inventario inventario = inventarioService.guardarInventario(inventario1);
         if(inventario != null){
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -56,7 +57,7 @@ public class InventarioController {
     }
 
     @PutMapping
-    public ResponseEntity<Inventario> editarGenero(@PathVariable Integer id_inventario, @RequestBody Inventario inventario){
+    public ResponseEntity<Inventario> editarGenero(@Valid @PathVariable Integer id_inventario, @RequestBody Inventario inventario){
         Inventario inventarioActualizado = inventarioService.actualizarInventario(id_inventario, inventario);
         if(inventarioActualizado != null){
             return new ResponseEntity<>(inventarioActualizado, HttpStatus.OK);
@@ -67,7 +68,7 @@ public class InventarioController {
     }
 
     @DeleteMapping("/{id_inventario}")
-    public ResponseEntity<String> eliminarInventario(@PathVariable Integer id_inventario){
+    public ResponseEntity<String> eliminarInventario(@Valid @PathVariable Integer id_inventario){
         String resultado = inventarioService.eliminarInventario(id_inventario);
         if(resultado.equals("El inventario ha sido eliminado")){
             return new ResponseEntity<>(resultado,HttpStatus.OK);

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import TiendaManga.DTO.ResenaDTO;
 import TiendaManga.Model.Resena;
 import TiendaManga.Service.ResenaService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/resenas")
@@ -33,7 +34,7 @@ public class ResenaController {
         return new ResponseEntity<>(resenas, HttpStatus.OK);
     }
     @GetMapping("/{id_resena}")
-    public ResponseEntity<ResenaDTO> buscarResena(@PathVariable Integer id_resena) {
+    public ResponseEntity<ResenaDTO> buscarResena(@Valid @PathVariable Integer id_resena) {
         try{
             ResenaDTO resena= resenaServices.buscarPorId(id_resena);
             return new ResponseEntity<>(resena, HttpStatus.OK);
@@ -42,7 +43,7 @@ public class ResenaController {
         }
     }
     @PostMapping
-    public ResponseEntity<Resena> guardarResena(@RequestBody Resena resenaNueva) {
+    public ResponseEntity<Resena> guardarResena(@Valid @RequestBody Resena resenaNueva) {
         Resena resena = resenaServices.agregar(resenaNueva);
         if (resena != null) {
             return new ResponseEntity<>(resena, HttpStatus.CREATED);
@@ -50,7 +51,7 @@ public class ResenaController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
     @PutMapping("/{id_resena}")
-    public ResponseEntity<Resena> editarResena(@PathVariable Integer id_resena, @RequestBody Resena resena) {
+    public ResponseEntity<Resena> editarResena(@Valid @PathVariable Integer id_resena, @RequestBody Resena resena) {
         Resena resenaEditada = resenaServices.actualizar(id_resena, resena);
         if (resenaEditada != null) {
             return new ResponseEntity<>(resenaEditada, HttpStatus.OK);
@@ -58,7 +59,7 @@ public class ResenaController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @DeleteMapping("/{id_resena}")
-    public ResponseEntity<String> eliminarResena(@PathVariable Integer id_resena) {
+    public ResponseEntity<String> eliminarResena(@Valid @PathVariable Integer id_resena) {
         String resultado = resenaServices.eliminar(id_resena);
         if (resultado.equals("La reseña ha sido eliminada.")) {
             return new ResponseEntity<>(resultado, HttpStatus.OK);

@@ -2,6 +2,7 @@ package TiendaManga.Model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,9 +27,11 @@ public class Carrito {
 
     @Min(1)
     @NotNull
+    @Column(nullable = false)
     private Integer cantidad;
 
     @NotNull
+    @Column(nullable = false)
     private LocalDate fecha_agregado;
 
     //Relaciones

@@ -2,6 +2,7 @@ package TiendaManga.Model;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +28,7 @@ public class Genero {
 
     @NotBlank
     @Size(min = 4, max = 60)
+    @Column(nullable = false, length = 60)
     private String nombreGenero;
 
     //Relaciones

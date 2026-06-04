@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import TiendaManga.DTO.AutorDTO;
 import TiendaManga.Model.Autor;
 import TiendaManga.Service.AutorService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/autores")
@@ -35,7 +36,7 @@ public class AutorController {
     }
 
     @GetMapping("{id_autor}")
-    public ResponseEntity<AutorDTO> buscarAutor(@PathVariable Integer id_autor){
+    public ResponseEntity<AutorDTO> buscarAutor(@Valid @PathVariable Integer id_autor){
         try{
             AutorDTO autor = autorService.buscarAutor(id_autor);
             return new ResponseEntity<>(autor, HttpStatus.OK);
@@ -46,7 +47,7 @@ public class AutorController {
     }
 
     @PostMapping
-    public ResponseEntity<Autor> guardarAutor(@RequestBody Autor autor1){
+    public ResponseEntity<Autor> guardarAutor(@Valid @RequestBody Autor autor1){
         Autor autor = autorService.guardarAutor(autor1);
         if(autor != null){
             return new ResponseEntity<>(autor, HttpStatus.CREATED);
@@ -57,7 +58,7 @@ public class AutorController {
     }
 
     @PutMapping
-    public ResponseEntity<Autor> editarAutor(@PathVariable Integer id_autor, @RequestBody Autor autor){
+    public ResponseEntity<Autor> editarAutor(@Valid @PathVariable Integer id_autor, @RequestBody Autor autor){
         Autor autorEditado = autorService.editarAutor(id_autor, autor);
         if(autorEditado != null){
             return new ResponseEntity<>(autorEditado, HttpStatus.OK);
@@ -68,7 +69,7 @@ public class AutorController {
     }
 
     @DeleteMapping("/{id_autor}")
-    public ResponseEntity<String> eliminarAutor(@PathVariable Integer id_autor){
+    public ResponseEntity<String> eliminarAutor(@Valid @PathVariable Integer id_autor){
         String resultado = autorService.eliminarAutor(id_autor);
         if(resultado.equals("El autor ha sido eliminado.")){
             return new ResponseEntity<>(resultado, HttpStatus.OK);
