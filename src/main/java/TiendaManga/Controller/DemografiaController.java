@@ -68,15 +68,15 @@ public class DemografiaController {
         }
     }
 
-    @DeleteMapping("/{id_demografia}")
-    public ResponseEntity<String> eliminarDemografia(@Valid @PathVariable Integer id_demografia){
-        String resultado = demografiaService.eliminarDemografia(id_demografia);
-        if(resultado.equals("La demografia ha sido eliminada.")){
-            return new ResponseEntity<>(resultado, HttpStatus.OK); 
-        }
-        else{
-            return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
-        }
-    }
+    //@DeleteMapping("/{id_demografia}")
+    //public ResponseEntity<String> eliminarDemografia(@Valid @PathVariable Integer id_demografia){
+        //String resultado = demografiaService.eliminarDemografia(id_demografia);
+        //if(resultado.equals("La demografia ha sido eliminada.")){
+            //return new ResponseEntity<>(resultado, HttpStatus.OK); 
+        //}
+        //else{
+            //return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
+        //}
+    //}
 
 }
