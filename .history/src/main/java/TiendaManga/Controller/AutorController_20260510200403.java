@@ -21,7 +21,7 @@ import TiendaManga.Service.AutorService;
 @RestController
 @RequestMapping("/api/v1/autores")
 public class AutorController {
- // agregar metodo en manga de eliminar auto = 
+
     @Autowired
     private AutorService autorService;
 

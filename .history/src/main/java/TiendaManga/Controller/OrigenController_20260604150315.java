@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,4 +63,16 @@ public class OrigenController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("{/id_origen}")
+    public ResponseEntity<String> eliminarOrigen(@PathVariable Integer id_origen){
+        String resultado = origenService.eliminarOrigen(id_origen);
+        if(resultado.equals("El origen ha sido eliminado")){
+            return new ResponseEntity<>(resultado,HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
