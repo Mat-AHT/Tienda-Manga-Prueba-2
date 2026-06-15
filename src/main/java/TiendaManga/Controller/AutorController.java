@@ -65,7 +65,7 @@ public class AutorController {
         }
     }
 
-    @PutMapping
+    @PutMapping("/{id_autor}")
     public ResponseEntity<Autor> editarAutor(@Valid @PathVariable Integer id_autor, @RequestBody Autor autor){
         Autor autorEditado = autorService.editarAutor(id_autor, autor);
         if(autorEditado != null){

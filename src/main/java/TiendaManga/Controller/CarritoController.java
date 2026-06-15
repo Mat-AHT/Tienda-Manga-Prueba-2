@@ -39,7 +39,7 @@ public class CarritoController {
         return new ResponseEntity<>(carritos, HttpStatus.OK);
     }
 
-    @GetMapping("{id_carrito}")
+    @GetMapping("/{id_carrito}")
     public ResponseEntity<CarritoDTO> buscarCarrito(@Valid @PathVariable Integer id_carrito){
         try{
             CarritoDTO carrito = carritoService.buscarCarrito(id_carrito);
@@ -65,7 +65,7 @@ public class CarritoController {
         }
     }
 
-    @PutMapping
+    @PutMapping("/{id_carrito}")
     public ResponseEntity<Carrito> editarCarrito(@Valid @PathVariable Integer id_carrito, @RequestBody Carrito carrito){
         Carrito carritoEditado = carritoService.editarCarrito(id_carrito, carrito);
         if(carritoEditado != null){

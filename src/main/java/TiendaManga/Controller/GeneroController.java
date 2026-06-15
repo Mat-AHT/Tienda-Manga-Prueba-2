@@ -39,7 +39,7 @@ public class GeneroController {
         return new ResponseEntity<>(generos, HttpStatus.OK);
     }
 
-    @GetMapping("{id_genero}")
+    @GetMapping("/{id_genero}")
     public ResponseEntity<GeneroDTO> buscarGenero(@Valid @PathVariable Integer id_genero){
         try{
             GeneroDTO genero = generoService.buscarGenero(id_genero);
@@ -64,7 +64,7 @@ public class GeneroController {
         }
     }
 
-    @PutMapping
+    @PutMapping("/{id_genero}")
     public ResponseEntity<Genero> editarGenero(@Valid @PathVariable Integer id_genero, @RequestBody Genero genero){
         Genero generoEditado = generoService.editarGenero(id_genero, genero);
         if(generoEditado != null){

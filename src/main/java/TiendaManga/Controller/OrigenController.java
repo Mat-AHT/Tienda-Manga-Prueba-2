@@ -39,7 +39,7 @@ public class OrigenController {
         return new ResponseEntity<>(origen, HttpStatus.OK);
     }
 
-    @GetMapping("{id_origen}")
+    @GetMapping("/{id_origen}")
     public ResponseEntity<OrigenDTO> buscarOrigen(@Valid @PathVariable Integer id_origen){
         try{
             OrigenDTO origen = origenService.buscarOrigen(id_origen);
@@ -64,7 +64,7 @@ public class OrigenController {
         }
     }
 
-    @PutMapping
+    @PutMapping("/{id_origen}")
     public ResponseEntity<Origen> editarOrigen(@Valid @PathVariable Integer id_origen, @RequestBody Origen origen){
         Origen origenEditado = origenService.editarOrigen(id_origen, origen);
         if(origenEditado != null){

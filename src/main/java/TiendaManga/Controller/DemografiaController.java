@@ -38,7 +38,7 @@ public class DemografiaController {
         return new ResponseEntity<>(demografias, HttpStatus.OK);
     }
 
-    @GetMapping("{id_demografia}")
+    @GetMapping("/{id_demografia}")
     public ResponseEntity<DemografiaDTO> buscarDemografia(@Valid @PathVariable Integer id_demografia){
         try{
             DemografiaDTO demografia = demografiaService.buscarDemografia(id_demografia);
@@ -64,7 +64,7 @@ public class DemografiaController {
         }
     }
 
-    @PutMapping
+    @PutMapping("/{id_demografia}")
     public ResponseEntity<Demografia> editarDemografia(@Valid @PathVariable Integer id_demografia, @RequestBody Demografia demografia){
         Demografia demografiaEditada = demografiaService.editarDemografia(id_demografia, demografia);
         if(demografiaEditada != null){

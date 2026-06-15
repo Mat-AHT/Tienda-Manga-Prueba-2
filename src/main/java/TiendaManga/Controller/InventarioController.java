@@ -64,7 +64,7 @@ public class InventarioController {
         }
     }
 
-    @PutMapping
+    @PutMapping("/{id_inventario}")
     public ResponseEntity<Inventario> editarGenero(@Valid @PathVariable Integer id_inventario, @RequestBody Inventario inventario){
         Inventario inventarioActualizado = inventarioService.actualizarInventario(id_inventario, inventario);
         if(inventarioActualizado != null){
