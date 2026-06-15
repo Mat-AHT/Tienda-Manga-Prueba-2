@@ -18,8 +18,10 @@ import TiendaManga.DTO.MangaDTO;
 import TiendaManga.Model.Manga;
 import TiendaManga.Service.MangaService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 @RequestMapping("/api/v1/mangas")
 public class MangaController {
 
@@ -30,8 +32,10 @@ public class MangaController {
     public ResponseEntity<List<MangaDTO>> obtenerManga(){
         List<MangaDTO> mangas = mangaService.listarMangas();
         if(mangas.isEmpty()){
+            log.warn("HTTP NO_CONTENT: No se encontraron mangas en la base de datos.");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        log.info("HTTP OK: Se han listado los mangas.");
         return new ResponseEntity<>(mangas, HttpStatus.OK);
     }
 
@@ -39,8 +43,10 @@ public class MangaController {
     public ResponseEntity<MangaDTO> buscarMangaId(@Valid @PathVariable Integer id_manga){
         try{
             MangaDTO manga = mangaService.buscarManga(id_manga);
+            log.info("HTTP OK: Se ha encontrado el manga con la id " + id_manga);
             return new ResponseEntity<>(manga, HttpStatus.OK);
         } catch(RuntimeException e){
+            log.error("HTTP NOT_FOUND: No se ha encontrado el manga con la id " + id_manga);
             return ResponseEntity.notFound().build();
         }
     }
@@ -49,8 +55,10 @@ public class MangaController {
     public ResponseEntity<List<MangaDTO>> filtrarPorgenero(@Valid @PathVariable Integer id_genero){
         List<MangaDTO> mangas = mangaService.buscarPorGenero(id_genero);
         if(mangas.isEmpty()){
+            log.warn("HTTP NO_CONTENT: No se encontraron mangas para el género con la id " + id_genero);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        log.info("HTTP OK: Se han encontrado mangas para el género con la id " + id_genero);
         return new ResponseEntity<>(mangas, HttpStatus.OK);
     }
 
@@ -58,8 +66,10 @@ public class MangaController {
     public ResponseEntity<Manga> guardarManga(@Valid @RequestBody Manga mangaNuevo){
         Manga manga = mangaService.guardarManga(mangaNuevo);
         if(manga != null){
+            log.info("HTTP CREATED: Se ha creado el manga con la id " + manga.getId_manga());
             return new ResponseEntity<>(manga, HttpStatus.CREATED);
         }else{
+            log.error("HTTP BAD_REQUEST: No se ha podido crear el manga.");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -68,8 +78,10 @@ public class MangaController {
     public ResponseEntity<Manga> editarManga(@Valid @PathVariable Integer id_manga, @RequestBody Manga manga){
         Manga mangaEditado = mangaService.editarManga(id_manga, manga);
         if(mangaEditado != null){
+            log.info("HTTP OK: Se ha editado el manga con la id " + id_manga);
             return new ResponseEntity<>(mangaEditado, HttpStatus.OK);
         }else{
+            log.error("HTTP NOT_FOUND: No se ha encontrado el manga con la id " + id_manga);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -78,8 +90,10 @@ public class MangaController {
     public ResponseEntity<String> eliminarManga(@Valid @PathVariable Integer id_manga){
         String resultado = mangaService.eliminarManga(id_manga);
         if(resultado != null){
+            log.info("HTTP OK: Se ha eliminado el manga con la id " + id_manga);
             return new ResponseEntity<>(resultado, HttpStatus.OK);
         }else{
+            log.error("HTTP NOT_FOUND: No se ha encontrado el manga con la id " + id_manga);
             return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
         }
     }

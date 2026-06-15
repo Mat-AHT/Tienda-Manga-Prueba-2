@@ -18,8 +18,10 @@ import TiendaManga.DTO.ResenaDTO;
 import TiendaManga.Model.Resena;
 import TiendaManga.Service.ResenaService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 @RequestMapping("/api/v1/resenas")
 public class ResenaController {
     @Autowired
@@ -29,16 +31,20 @@ public class ResenaController {
     public ResponseEntity<List<ResenaDTO>> listarResenas() {
         List<ResenaDTO> resenas = resenaServices.obtenerTodo();
         if (resenas.isEmpty()) {
+            log.warn("HTTP NO_CONTENT: No se encontraron reseñas en la base de datos.");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        log.info("HTTP OK: Se han listado las reseñas.");
         return new ResponseEntity<>(resenas, HttpStatus.OK);
     }
     @GetMapping("/{id_resena}")
     public ResponseEntity<ResenaDTO> buscarResena(@Valid @PathVariable Integer id_resena) {
         try{
             ResenaDTO resena= resenaServices.buscarPorId(id_resena);
+            log.info("HTTP OK: Se ha encontrado la reseña con la id " + id_resena);
             return new ResponseEntity<>(resena, HttpStatus.OK);
         }catch(RuntimeException e){
+            log.error("HTTP NOT_FOUND: No se ha encontrado la reseña con la id " + id_resena);
             return ResponseEntity.notFound().build();
         }
     }
@@ -46,24 +52,30 @@ public class ResenaController {
     public ResponseEntity<Resena> guardarResena(@Valid @RequestBody Resena resenaNueva) {
         Resena resena = resenaServices.agregar(resenaNueva);
         if (resena != null) {
+            log.info("HTTP CREATED: Se ha creado la reseña con la id " + resena.getId_resena());
             return new ResponseEntity<>(resena, HttpStatus.CREATED);
         }
+        log.error("HTTP BAD_REQUEST: No se ha podido crear la reseña.");
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
     @PutMapping("/{id_resena}")
     public ResponseEntity<Resena> editarResena(@Valid @PathVariable Integer id_resena, @RequestBody Resena resena) {
         Resena resenaEditada = resenaServices.actualizar(id_resena, resena);
         if (resenaEditada != null) {
+            log.info("HTTP OK: Se ha actualizado la reseña con la id " + id_resena);
             return new ResponseEntity<>(resenaEditada, HttpStatus.OK);
         }
+        log.error("HTTP NOT_FOUND: No se ha encontrado la reseña con la id " + id_resena);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @DeleteMapping("/{id_resena}")
     public ResponseEntity<String> eliminarResena(@Valid @PathVariable Integer id_resena) {
         String resultado = resenaServices.eliminar(id_resena);
         if (resultado.equals("La reseña ha sido eliminada.")) {
+            log.info("HTTP OK: Se ha eliminado la reseña con la id " + id_resena);
             return new ResponseEntity<>(resultado, HttpStatus.OK);
         }
+        log.error("HTTP NOT_FOUND: No se ha encontrado la reseña con la id " + id_resena);
         return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
     }
     

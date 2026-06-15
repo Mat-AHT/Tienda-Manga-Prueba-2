@@ -18,8 +18,10 @@ import TiendaManga.DTO.CarritoDTO;
 import TiendaManga.Model.Carrito;
 import TiendaManga.Service.CarritoService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 @RequestMapping("/api/v1/carritos")
 public class CarritoController {
 
@@ -30,8 +32,10 @@ public class CarritoController {
     public ResponseEntity<List<CarritoDTO>> listarCarritos(){
         List<CarritoDTO> carritos = carritoService.listarCarritos();
         if(carritos.isEmpty()){
+            log.warn("HTTP NO_CONTENT: No se encontraron carritos en la base de datos.");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        log.info("HTTP OK: Se han listado los carritos.");
         return new ResponseEntity<>(carritos, HttpStatus.OK);
     }
 
@@ -39,8 +43,10 @@ public class CarritoController {
     public ResponseEntity<CarritoDTO> buscarCarrito(@Valid @PathVariable Integer id_carrito){
         try{
             CarritoDTO carrito = carritoService.buscarCarrito(id_carrito);
+            log.info("HTTP OK: Se ha encontrado el carrito con la id " + id_carrito);
             return new ResponseEntity<>(carrito, HttpStatus.OK);
         } catch(RuntimeException e){
+            log.error("HTTP NOT_FOUND: No se ha encontrado el carrito con la id " + id_carrito);
             return ResponseEntity.notFound().build();
         }     
     }
@@ -50,9 +56,11 @@ public class CarritoController {
     public ResponseEntity<Carrito> guardarCarrito(@Valid @RequestBody Carrito carrito1){
         Carrito carrito = carritoService.guardarCarrito(carrito1);
         if(carrito != null){
+            log.info("HTTP CREATED: Se ha creado el carrito con la id " + carrito.getId_carrito());
             return new ResponseEntity<>(carrito, HttpStatus.CREATED);
         }
         else{
+            log.error("HTTP BAD_REQUEST: No se ha podido crear el carrito.");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -61,9 +69,11 @@ public class CarritoController {
     public ResponseEntity<Carrito> editarCarrito(@Valid @PathVariable Integer id_carrito, @RequestBody Carrito carrito){
         Carrito carritoEditado = carritoService.editarCarrito(id_carrito, carrito);
         if(carritoEditado != null){
+            log.info("HTTP OK: Se ha editado el carrito con la id " + id_carrito);
             return new ResponseEntity<>(carritoEditado, HttpStatus.OK);
         }
         else{
+            log.error("HTTP NOT_FOUND: No se ha encontrado el carrito con la id " + id_carrito);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -72,9 +82,11 @@ public class CarritoController {
     public ResponseEntity<String> eliminarCarrito(@Valid @PathVariable Integer id_carrito){
         String resultado = carritoService.eliminarCarrito(id_carrito);
         if(resultado.equals("El carrito ha sido eliminado.")){
+            log.info("HTTP OK: Se ha eliminado el carrito con la id " + id_carrito);
             return new ResponseEntity<>(resultado, HttpStatus.OK); 
         }
         else{
+            log.error("HTTP NOT_FOUND: No se ha encontrado el carrito con la id " + id_carrito);
             return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
         }
     }
