@@ -23,10 +23,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/api/v1/pagos")
 public class PagoController {
+    
     @Autowired
     private PagoService pagoService;
-    
-    
     
     @GetMapping
     public ResponseEntity<List<PagoDTO>> listarPagos() {
